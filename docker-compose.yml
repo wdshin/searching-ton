@@ -1,0 +1,43 @@
+version: "3.7"
+
+services:
+  db:
+    image: postgres:latest
+    volumes:
+     - dbdata:/var/lib/postgresql/data
+    env_file: ./searching-front/.env.local #Here we are using the already existing .env.local file
+    ports:
+      - "5432:5432"
+  elasticsearch:
+    container_name: es-container
+    image: elasticsearch:8.4.0
+    environment:
+      - xpack.security.enabled=false
+      - "discovery.type=single-node"
+    networks:
+      - es-net
+    ports:
+      - 9200:9200
+  kibana:
+    container_name: kb-container
+    image: kibana:7.17.6
+    environment:
+      - ELASTICSEARCH_HOSTS=http://es-container:9200
+    networks:
+      - es-net
+    depends_on:
+      - elasticsearch
+    ports:
+      - 5601:5601
+  proxy:
+    platform: linux/x86_64
+    build: ./proxy
+    volumes: 
+      - ./proxy:/app
+
+networks:
+  es-net:
+    driver: bridge
+
+volumes:
+ dbdata:

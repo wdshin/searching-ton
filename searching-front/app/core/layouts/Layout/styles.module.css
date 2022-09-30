@@ -1,0 +1,23 @@
+.root {
+  background: var(--background_main);
+  padding: 20px;
+}
+.content {
+  margin-top: 20px;
+  margin-left: var(--logoWrapperWidth);
+  display: flex;
+  flex-direction: column;
+
+  flex: 1;
+  /* margin: auto; */
+}
+
+.content.withoutPaddings {
+  margin-left: 0;
+}
+
+@media only screen and (max-width: 900px) {
+  .content {
+    margin-left: 0;
+  }
+}

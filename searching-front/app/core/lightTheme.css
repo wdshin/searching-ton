@@ -1,0 +1,34 @@
+#layout.light {
+  --background_main: hsla(206, 63%, 97%, 1);
+  --background_secondary: white;
+  --background_gradient: linear-gradient(180deg, #f7f9fb, rgba(238, 242, 245, 0.8) 116.16%);
+  --background_icon: rgba(0, 136, 204, 0.06);
+  --background_blue: rgba(0, 136, 204, 0.1);
+  --background_gradient: linear-gradient(180deg, #fff, #f7f9fb 134.8%);
+  --background_green_light: #829a94;
+  --background_mini_opacity: rgba(255, 255, 255, 0.75);
+  --background_loading_gradient_light: linear-gradient(
+    90deg,
+    #f7f9fb -9.69%,
+    #f2f5f8 -9.68%,
+    #fff 52.19%,
+    #f2f5f8 106.56%
+  );
+  --button_primary: #08c;
+  --button_primary_hover: #0197e2;
+  --button_primary_pressed: #0082c2;
+  --button_secondary: rgba(246, 248, 251, 0.8);
+  --button_secondary_hover: #f4f7fa;
+  --button_secondary_pressed: #f4f7fa;
+
+  --button_primary_small: rgba(0, 136, 204, 0.06);
+  --button_primary_small_hover: rgba(0, 136, 204, 0.3);
+  --button_primary_small_pressed: rgba(0, 136, 204, 0.03);
+  --text_primary: #161c28;
+  --text_secondary: #728a96;
+  --icon_primary: #08c;
+  --icon_secondary: rgba(236, 240, 243, 0.8);
+  --icon_thirdly: #98b2bf;
+  --separator_light: rgba(123, 148, 160, 0.2);
+  --color_link: #101070;
+}

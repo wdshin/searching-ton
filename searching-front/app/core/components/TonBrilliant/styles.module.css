@@ -1,0 +1,39 @@
+.root {
+  /* position: relative; */
+}
+
+.video {
+  position: relative;
+  z-index: 1002;
+}
+
+.root:before {
+  content: "";
+  z-index: 0;
+  max-width: 690px;
+  max-height: 690px;
+  width: 100vw;
+  height: 100vh;
+  position: absolute;
+  top: -234px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
+  background: radial-gradient(
+    circle,
+    rgba(60, 187, 251, 0.3) 0,
+    rgba(60, 187, 251, 0.221) 13.11%,
+    rgba(60, 187, 251, 0.162) 23.46%,
+    rgba(60, 187, 251, 0.115) 32.43%,
+    rgba(60, 187, 251, 0.083) 38.985%,
+    rgba(60, 187, 251, 0.058) 44.85%,
+    rgba(60, 187, 251, 0.038) 50.37%,
+    rgba(60, 187, 251, 0.023) 55.338%,
+    rgba(60, 187, 251, 0.013) 59.409%,
+    rgba(60, 187, 251, 0.006) 62.79%,
+    rgba(60, 187, 251, 0.002) 65.688%,
+    rgba(60, 187, 251, 0.001) 67.758%,
+    rgba(60, 187, 251, 0) 69%
+  );
+}

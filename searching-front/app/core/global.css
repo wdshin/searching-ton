@@ -1,0 +1,73 @@
+body {
+  margin: 0;
+}
+@font-face {
+  font-family: Mulish;
+  font-style: normal;
+  font-weight: 800;
+  font-display: block;
+  src: url(/Mulish-ExtraBold.woff2) format("woff2");
+}
+
+@font-face {
+  font-family: Mulish;
+  font-style: normal;
+  font-weight: 700;
+  font-display: block;
+  src: url(/Mulish-Bold.woff2) format("woff2");
+}
+
+@font-face {
+  font-family: Mulish;
+  font-style: normal;
+  font-weight: 500;
+  font-display: block;
+  src: url(/Mulish-Medium.woff2) format("woff2");
+}
+
+@font-face {
+  font-family: Mulish;
+  font-style: normal;
+  font-weight: 400;
+  font-display: block;
+  src: url(/Mulish-Regular.woff2) format("woff2");
+}
+
+@font-face {
+  font-family: IBMPlexMono;
+  font-style: normal;
+  font-weight: 700;
+  font-display: block;
+  src: url(/IBMPlexMono-Bold.woff2) format("woff2");
+}
+
+body {
+  background: #08c;
+}
+html,
+#__next {
+  position: relative;
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+
+  cursor: default;
+  white-space: pre-line;
+  -webkit-font-smoothing: subpixel-antialiased;
+  -webkit-text-size-adjust: none;
+  -webkit-tap-highlight-color: transparent;
+  font-family: Mulish, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu,
+    Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  font-style: normal;
+}
+
+#__next {
+  display: flex;
+  flex-direction: column;
+}
+
+#layout {
+  min-height: 100vh;
+  color: var(--text_primary);
+  background-color: var(--background_main);
+}

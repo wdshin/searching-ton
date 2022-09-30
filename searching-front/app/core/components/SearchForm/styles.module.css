@@ -1,0 +1,73 @@
+.root {
+  width: 55vw;
+  font-size: 18px;
+  position: relative;
+  z-index: 101;
+}
+
+@media only screen and (max-width: 900px) {
+  .root {
+    box-sizing: border-box;
+    width: 100%;
+  }
+}
+
+.inputWrapper {
+  position: relative;
+  display: flex;
+  box-sizing: border-box;
+  height: 53px;
+
+  border: 2px solid var(--button_primary);
+  border-radius: 0.8rem;
+  background: var(--background_secondary);
+  transition: border-color 0.1s ease-in-out;
+  padding: 4px 4px 4px 20px;
+  width: 100%;
+  font-size: inherit;
+}
+
+.input {
+  outline: none;
+  border: none;
+  flex: 1;
+  font-size: inherit;
+  background: transparent;
+  color: var(--text-primary);
+}
+.button {
+  /* margin: 4px 0; */
+}
+
+.suggestions {
+  margin-top: 5px;
+  position: absolute;
+  width: 100%;
+  background: var(--background_secondary);
+  border-radius: 6px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+.suggestion {
+  font-size: inherit;
+  padding: 7px 20px;
+  cursor: pointer;
+}
+
+.suggestion:hover {
+  background: var(--background_blue);
+}
+
+.suggestionsOverlay {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 100vw;
+  height: 100vh;
+  background: #00000050;
+  z-index: 100;
+}
+.focusedSuggestion {
+  background: var(--background_blue) !important;
+}

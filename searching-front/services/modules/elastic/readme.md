@@ -1,0 +1,1 @@
+put http://localhost:9200/newindex - создание индекса

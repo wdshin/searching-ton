@@ -1,0 +1,32 @@
+#layout.dark {
+  --background_main: #232328;
+  --background_gradient: linear-gradient(0deg, #232328, #343437 101.47%);
+  --background_secondary: hsl(240 2% 23% / 1);
+  --background_blue: hsla(200, 100%, 50%, 0.05);
+  --background_black_mini_opacity: rgb(0, 0, 0, 0.24);
+  --background_loading_gradient_light: linear-gradient(
+    90deg,
+    #f7f9fb -9.69%,
+    #f2f5f8 -9.68%,
+    #fff 52.19%,
+    #f2f5f8 106.56%
+  );
+
+  --button_primary: #08c;
+  --button_primary_hover: #00a1f1;
+  --button_primary_pressed: #076c9f;
+  --button_secondary: hsla(0, 0%, 100%, 0.06);
+  --button_secondary_hover: hsla(0, 0%, 100%, 0.12);
+  --button_secondary_pressed: hsla(0, 0%, 100%, 0.03);
+  --button_text: #07a0ec;
+  --button_secondary_text_hover: #5bc8ff;
+  --button_secondary_text_pressed: #0186c9;
+
+  --text_primary: #fff;
+  --text_secondary: hsla(0, 0%, 100%, 0.7);
+  --text_gradient: linear-gradient(89.92deg, #06a1ef 28.51%, #69cdff 85.79%);
+
+  --icon_primary: #02a8fb;
+  --separator: hsla(0, 0%, 100%, 0.06);
+  --color_link: hsl(200 50% 70% / 1);
+}

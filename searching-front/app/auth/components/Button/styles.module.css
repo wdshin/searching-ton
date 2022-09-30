@@ -1,0 +1,29 @@
+.root {
+  border-radius: 10px;
+  border: none;
+  padding: 0 20px;
+  cursor: pointer;
+  transition: color 0.2s ease-in-out, background-color 0.2s ease-in-out, opacity 0.2s ease-in-out,
+    transform 0.2s ease-in-out;
+
+  /* size */
+  font-size: 18px;
+  font-weight: 500px;
+}
+
+.root:active {
+  transform: scale(0.95);
+}
+
+.root:global(.theme-primary) {
+  color: var(--default_white);
+  background-color: var(--button_primary);
+}
+
+.root:global(.theme-primary):hover {
+  background-color: var(--button_primary_hover);
+}
+
+.root:global(.theme-primary):active {
+  background-color: var(--button_primary_pressed);
+}

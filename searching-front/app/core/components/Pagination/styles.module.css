@@ -1,0 +1,64 @@
+.container {
+  display: flex;
+
+  align-items: center;
+  padding-left: 0;
+}
+
+.container > li {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  cursor: pointer;
+  padding-left: 0;
+}
+
+.page,
+.pageLink {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  color: var(--text_light_primary);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: background linear 0.5;
+}
+.page:not(:last-child) {
+  margin-right: 5px;
+}
+.pageLink {
+  opacity: 0.7;
+}
+
+.page:hover,
+.pageLink:hover {
+  background: #00000005;
+}
+
+.active,
+.activeLink {
+  background: #00000005;
+}
+
+.break {
+}
+
+.previous {
+  color: black;
+}
+.next {
+  color: black;
+}
+.previousLink {
+  color: black;
+}
+.nextLink {
+  color: black;
+}
+.disabled {
+  opacity: 0;
+}
+.disabledLink {
+  color: black;
+}
