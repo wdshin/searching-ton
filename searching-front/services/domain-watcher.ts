@@ -1,5 +1,4 @@
-import dotenv from "dotenv"
-import path from "path"
+
 import tonweb from "tonweb"
 import {
   JettonApi,
@@ -11,7 +10,6 @@ import {
   WalletApi,
   Configuration,
 } from "tonapi-sdk-js"
-dotenv.config({ path: path.resolve(__dirname, "../.env.local") })
 import db from "../db/index"
 import axios from "axios"
 import { getTonProxy } from "./helpers"

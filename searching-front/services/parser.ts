@@ -1,12 +1,3 @@
-import dotenv from "dotenv"
-import path from "path"
-import { JSDOM } from "jsdom"
-import axios from "axios"
-import tinyld from "tinyld"
-import languagedetect from "languagedetect"
-
-dotenv.config({ path: path.resolve(__dirname, "../.env.local") })
-
 import db from "../db/index"
 import Elastic from "./modules/elastic"
 import Parser from "./modules/parser"

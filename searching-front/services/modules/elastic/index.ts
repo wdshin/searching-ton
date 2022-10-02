@@ -44,7 +44,7 @@ class Elastic {
   private client: Client
   constructor() {
     this.client = new Client({
-      node: "http://localhost:9200",
+      node: "http://elasticsearch:9200",
     })
   }
 

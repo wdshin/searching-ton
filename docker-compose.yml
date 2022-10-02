@@ -18,17 +18,6 @@ services:
       - es-net
     ports:
       - 9200:9200
-  kibana:
-    container_name: kb-container
-    image: kibana:7.17.6
-    environment:
-      - ELASTICSEARCH_HOSTS=http://es-container:9200
-    networks:
-      - es-net
-    depends_on:
-      - elasticsearch
-    ports:
-      - 5601:5601
   proxy:
     platform: linux/x86_64
     build: ./proxy

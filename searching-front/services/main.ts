@@ -1,6 +1,8 @@
+import dotenv from "dotenv"
+import path from "path"
+dotenv.config({ path: path.resolve(__dirname, "../.env.local") })
 import domainWatcher from './domain-watcher'
 import parser from './parser'
-
 
 const run = async()=>{
     console.log('Start domain watcher')
