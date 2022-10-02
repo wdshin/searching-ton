@@ -11,6 +11,7 @@ const findFirstNotIndexed = (subpages: SubPages = {}) => {
 }
 
 const indexWebsite = async (domain: string, path: string, subpages: SubPages = {}) => {
+  console.log('Start indexWebsite ', domain)
   if (!subpages[path]) {
     const url = domain + path;
     const parseInfo = await Parser.parseUrl(url)
@@ -46,6 +47,7 @@ const main = async () => {
   console.log('Find domains', domains)
   if (domains) {
     for (const domain of domains) {
+      console.log('Update ', domain)
       await db.nftDomain.update({
         where: { address: domain.address },
         data: { lastParse: new Date() },

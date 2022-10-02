@@ -28,10 +28,11 @@ class Parser {
   constructor() {}
   parseUrl = async (url: string) => {
     try {
+      console.log('Send request via ton proxy ', url)
       const { data, headers } = await axios.get(url,{
         proxy: getTonProxy(),
       })
-
+      console.log('Success response from ', url)
       const contentType = headers["content-type"].toLocaleLowerCase()
       console.log(contentType)
       if (!contentType.startsWith('text/html')) {
