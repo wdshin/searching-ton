@@ -68,9 +68,20 @@ CREATE TABLE "Domain" (
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
     "address" TEXT NOT NULL,
-    "lastParse" TIMESTAMP(3) NOT NULL,
+    "lastParse" TIMESTAMP(3),
 
     CONSTRAINT "Domain_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "NftDomain" (
+    "id" SERIAL NOT NULL,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3) NOT NULL,
+    "address" TEXT NOT NULL,
+    "available" BOOLEAN NOT NULL,
+
+    CONSTRAINT "NftDomain_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateIndex
@@ -90,6 +101,9 @@ CREATE UNIQUE INDEX "Webpage_path_key" ON "Webpage"("path");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "Domain_address_key" ON "Domain"("address");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "NftDomain_address_key" ON "NftDomain"("address");
 
 -- AddForeignKey
 ALTER TABLE "Session" ADD CONSTRAINT "Session_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE SET NULL ON UPDATE CASCADE;

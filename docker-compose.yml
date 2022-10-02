@@ -34,6 +34,22 @@ services:
     build: ./proxy
     volumes: 
       - ./proxy:/app
+  front:
+    container_name: front
+    build: ./searching-front
+    restart: always
+    ports:
+      - 3000:3000
+  watcher:
+    container_name: watcher
+    depends_on:
+      - elasticsearch
+    build: 
+      context: ./searching-front
+      dockerfile: Dockerfile.watcher
+    restart: always
+    ports:
+      - 3000:3000
 
 networks:
   es-net:

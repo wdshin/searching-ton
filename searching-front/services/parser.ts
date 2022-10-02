@@ -11,6 +11,7 @@ import db from "../db/index"
 import Elastic from "./modules/elastic"
 import Parser from "./modules/parser"
 import { SHOULD_NOT_PARSE } from "./modules/parser/helpers"
+import { Domain } from "domain"
 
 type SubPages = Record<string, boolean>
 
@@ -18,11 +19,11 @@ const findFirstNotIndexed = (subpages: SubPages = {}) => {
   return Object.entries(subpages).find(([url, isIndexed]) => !isIndexed)?.[0]
 }
 
-const indexWebsite = async (domain: string, url: string, subpages: SubPages = {}) => {
-  if (!subpages[url]) {
-    const urlObj = new URL(domain + url)
-    const parseInfo = await Parser.parseUrl(urlObj.toString())
-    subpages[url] = true
+const indexWebsite = async (domain: string, path: string, subpages: SubPages = {}) => {
+  if (!subpages[path]) {
+    const url = domain + path;
+    const parseInfo = await Parser.parseUrl(url)
+    subpages[path] = true
     let pages = {}
     if (parseInfo !== SHOULD_NOT_PARSE) {
       await Elastic.index(parseInfo.elasticData)
@@ -46,28 +47,24 @@ const indexWebsite = async (domain: string, url: string, subpages: SubPages = {}
   }
 }
 
-const main = async () => {
-  // await Elastic.initElastic()
-  // await Elastic.createIndex()
-  const domains = await db.domain.findMany()
 
+const main = async () => {
+  await Elastic.initElastic()
+  console.log('Success InitElastic')
+  const domains = await db.nftDomain.findMany()
+  console.log('Find domains', domains)
   if (domains) {
-    console.time("index")
     for (const domain of domains) {
-      console.time("index" + domain.address)
-      await db.domain.update({
+      await db.nftDomain.update({
         where: { address: domain.address },
         data: { lastParse: new Date() },
       })
+      console.log('Start index domain: ',domain.address)
       await indexWebsite(domain.address, "/")
-      console.timeEnd("index" + domain.address)
     }
-    console.timeEnd("index")
   }
+  console.log('Finish parse domains')
 }
 
-main()
-  .then(() => console.log("finish parser"))
-  .catch((e) => console.log("error in parserr", e))
 
-export default {}
+export default main

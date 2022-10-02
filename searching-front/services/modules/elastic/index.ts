@@ -63,7 +63,6 @@ class Elastic {
   public createIndex = async (lang: Languages) => {
     const indexName = getIndexNameByLang(lang)
     const analyzer = getAnalyzerByLang(lang)
-
     await this.client.indices.create({
       index: indexName,
       mappings: {
@@ -90,8 +89,12 @@ class Elastic {
   }
 
   public initElastic = async () => {
-    ;[Languages.EN, Languages.RU].forEach(async (item) => {
-      await this.createIndex(item)
+    ;[Languages.EN, Languages.RU].forEach(async (lang) => {
+      const indexName = getIndexNameByLang(lang)
+      const alreadyExist = await this.client.indices.exists({index:indexName})
+      if(!alreadyExist){
+        await this.createIndex(lang)
+      }
     })
   }
 

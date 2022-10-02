@@ -8,6 +8,7 @@ import textversion from "textversionjs"
 import { ElasticIndexParams } from "../elastic"
 import { htmlToText, SHOULD_NOT_PARSE } from "./helpers"
 import { URL } from "url"
+import { getTonProxy } from "../../helpers"
 
 interface ParseUrlResult {
   elasticData: ElasticIndexParams
@@ -27,10 +28,13 @@ class Parser {
   constructor() {}
   parseUrl = async (url: string) => {
     try {
-      const { data, headers } = await axios.get(url)
+      const { data, headers } = await axios.get(url,{
+        proxy: getTonProxy(),
+      })
 
       const contentType = headers["content-type"].toLocaleLowerCase()
-      if (contentType !== "text/html; charset=utf-8") {
+      console.log(contentType)
+      if (!contentType.startsWith('text/html')) {
         return SHOULD_NOT_PARSE
       }
 
@@ -40,6 +44,7 @@ class Parser {
 
       // собираем все ссылки и складываем их в сэт для дальнейшей обработки
       dom.window.document.querySelectorAll("a").forEach(({ href }) => {
+        console.log(href)
         if (isInnerLink(href)) {
           const url = new URL("ton://a.ton" + href)
           if (!isInvalidLink(url.pathname)) {

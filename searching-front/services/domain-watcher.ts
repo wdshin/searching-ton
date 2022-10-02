@@ -14,46 +14,55 @@ import {
 dotenv.config({ path: path.resolve(__dirname, "../.env.local") })
 import db from "../db/index"
 import axios from "axios"
+import { getTonProxy } from "./helpers"
 
-const nftApi = new NFTApi()
-
-const DOMAIN_MOCKS = ["https://wolkonsky.com", "https://zhleb.ru"]
-
-const DOMAINS_COLLECTION_ADDRESS = "EQC3dNlesgVD8YbAazcauIrXBPfiVhMMr5YYk2in0Mtsz0Bz"
-
-// const main = async () => {
-//   DOMAIN_MOCKS.forEach(async (item) => {
-//     await db.domain.upsert({
-//       where: {
-//         address: item,
-//       },
-//       update: {},
-//       create: { address: item },
-//     })
-//   })
-// }
 
 interface SearchNFTItemsParams {
   limit: number
   offset: number
 }
 
+const wait = (time:number) => new Promise((resolve)=>setTimeout(()=>resolve(true),time )) 
+
 const searchNFTItems = async ({ limit, offset }: SearchNFTItemsParams) => {
+  try{
+
+  
   console.log(`Start search limit:${limit}, offset:${offset}`)
+  await wait(1000)
   const { data } = await axios.get(
-    `https://tonapi.io/v1/nft/searchItems?collection=EQC3dNlesgVD8YbAazcauIrXBPfiVhMMr5YYk2in0Mtsz0Bz&include_on_sale=false&limit=${limit}&offset=${offset}`
-  )
-  console.log(`Success search: ${data.nft_items.length} items`)
+    `https://tonapi.io/v1/nft/searchItems?collection=EQC3dNlesgVD8YbAazcauIrXBPfiVhMMr5YYk2in0Mtsz0Bz&include_on_sale=false&limit=${limit}&offset=${offset}`,
+    {
+      headers:{
+        // 'Authorization': 'Bearer '+ '6c456b1e31217a79e121dcb9b506c280358d58bc86659bdbac1d737bfc3691fb',
+      }
+    }
+  ) 
   return data.nft_items
+} catch (e){
+  return searchNFTItems({ limit, offset })
+}
 }
 
 const portion = 1000
 
-const main = async () => {
-  console.time("DOMAINWATCH")
+const fetchTonSite = async (url: string) => {
+  const urlToFetch = `http://${url}/`
+  const response = await axios.get(urlToFetch, {
+    proxy: getTonProxy(),
+  })
+  if (!response.data) {
+    console.log("Error fetch")
+    throw "error"
+  }
+  return url
+}
+
+const main = async () => new Promise(async (resolve)=>{
   // Receive typed array of owner nfts
   let count = 0
   while (true) {
+    // в nftItems 1000 сайтов
     const nftItems = await searchNFTItems({
       limit: portion,
       offset: count * portion,
@@ -63,25 +72,27 @@ const main = async () => {
       for (let i = 0; i < nftItems.length; i++) {
         const nftDomainItem = nftItems[i]
         if (nftDomainItem.dns) {
-          await db.nftDomain.upsert({
-            where: {
-              address: nftDomainItem.dns,
-            },
-            update: { available: false, address: nftDomainItem.dns },
-            create: { available: false, address: nftDomainItem.dns },
-          })
+          fetchTonSite(nftDomainItem.dns)
+            .then(async (dmn) => {
+              console.log("success dmn", dmn)
+              await db.nftDomain.upsert({
+                where: {
+                  address: `http://${dmn}`,
+                },
+                update: { available: false, address: `http://${dmn}` },
+                create: { available: false, address: `http://${dmn}` },
+              })
+            })
+            .catch(() => {})
         }
       }
       count++
       continue
     }
-    console.timeEnd("DOMAINWATCH")
     break
   }
-}
+  console.log('Finish fetch nft')
+  setTimeout(()=>{resolve(true)}, 10000)
+})
 
-main()
-  .then(() => console.log("finish domain watcher"))
-  .catch((e) => console.log("error in domain watcher", e))
-
-export default {}
+export default main
