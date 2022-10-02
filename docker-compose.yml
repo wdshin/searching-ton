@@ -9,7 +9,6 @@ services:
     ports:
       - "5432:5432"
   elasticsearch:
-    container_name: es-container
     image: elasticsearch:8.4.0
     environment:
       - xpack.security.enabled=false
@@ -18,11 +17,11 @@ services:
       - es-net
     ports:
       - 9200:9200
-  proxy:
-    platform: linux/x86_64
-    build: ./proxy
-    volumes: 
-      - ./proxy:/app
+  # proxy:
+  #   platform: linux/x86_64
+  #   build: ./proxy
+  #   volumes: 
+  #     - ./proxy:/app
   front:
     container_name: front
     build: ./searching-front
