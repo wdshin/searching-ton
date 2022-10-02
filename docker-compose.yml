@@ -13,7 +13,6 @@ services:
     environment:
       - xpack.security.enabled=false
       - "discovery.type=single-node"
-
     ports:
       - 9200:9200
   # proxy:
@@ -27,6 +26,7 @@ services:
     restart: always
     ports:
       - 80:3000
+      - 8080:8080
   watcher:
     container_name: watcher
     depends_on:
@@ -35,6 +35,8 @@ services:
       context: ./searching-front
       dockerfile: Dockerfile.watcher
     restart: always
+    ports:
+      - 8080:8080
 
 networks:
   es-net:
