@@ -44,7 +44,7 @@ class Elastic {
   private client: Client
   constructor() {
     this.client = new Client({
-      node: "http://elasticsearch:9200",
+      node: process.env.ELASTIC_URL || "http://localhost:9200",
     })
   }
 
@@ -91,8 +91,8 @@ class Elastic {
   public initElastic = async () => {
     ;[Languages.EN, Languages.RU].forEach(async (lang) => {
       const indexName = getIndexNameByLang(lang)
-      const alreadyExist = await this.client.indices.exists({index:indexName})
-      if(!alreadyExist){
+      const alreadyExist = await this.client.indices.exists({ index: indexName })
+      if (!alreadyExist) {
         await this.createIndex(lang)
       }
     })
