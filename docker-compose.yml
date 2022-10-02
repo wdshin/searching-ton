@@ -39,7 +39,7 @@ services:
     build: ./searching-front
     restart: always
     ports:
-      - 3000:3000
+      - 80:3000
   watcher:
     container_name: watcher
     depends_on:
@@ -48,8 +48,6 @@ services:
       context: ./searching-front
       dockerfile: Dockerfile.watcher
     restart: always
-    ports:
-      - 3000:3000
 
 networks:
   es-net:
