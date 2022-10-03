@@ -6,11 +6,11 @@ import { authConfig } from "./blitz-client"
 
 export const { gSSP, gSP, api } = setupBlitzServer({
   plugins: [
-    AuthServerPlugin({
-      ...authConfig,
-      storage: PrismaStorage(db),
-      isAuthorized: simpleRolesIsAuthorized,
-    }),
+    // AuthServerPlugin({
+    //   ...authConfig,
+    //   storage: PrismaStorage(db),
+    //   isAuthorized: simpleRolesIsAuthorized,
+    // }),
   ],
   onError: (...args) => console.log("FROM BLITZ SERVER ERROR", ...args),
 })
