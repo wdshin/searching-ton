@@ -89,13 +89,15 @@ class Elastic {
   }
 
   public initElastic = async () => {
-    ;[Languages.EN, Languages.RU].forEach(async (lang) => {
+    const promises = [Languages.EN, Languages.RU].map(async (lang) => {
       const indexName = getIndexNameByLang(lang)
       const alreadyExist = await this.client.indices.exists({ index: indexName })
       if (!alreadyExist) {
-        await this.createIndex(lang)
+       return await this.createIndex(lang)
       }
+      return
     })
+    return await Promise.all(promises)
   }
 
   public index = async (params: ElasticIndexParams) => {
