@@ -24,9 +24,6 @@ services:
     container_name: front
     build: ./searching-front
     restart: always
-    ports:
-      - 80:3000
-      - 8080:8080
   watcher:
     container_name: watcher
     depends_on:
@@ -35,8 +32,12 @@ services:
       context: ./searching-front
       dockerfile: Dockerfile.watcher
     restart: always
+  nginx:
+    restart: always
+    build:
+      context: ./nginx
     ports:
-      - 8888:8080
+      - "80:80"
 
 networks:
   es-net:
