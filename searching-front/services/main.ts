@@ -18,5 +18,10 @@ const hour = 60 * minute;
 run();
 
 setInterval(()=>{
+    console.log(new Date(), 'Health check');
+},hour)
+
+setInterval(()=>{
+    console.log(new Date(), 'Cron parse start')
     run()
 },3 * hour)

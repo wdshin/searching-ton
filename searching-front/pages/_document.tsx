@@ -12,6 +12,8 @@ class MyDocument extends Document {
         <Head />
         <body>
           <Main />
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-DTHZT6R255"></script>
+
 <script type="text/javascript" dangerouslySetInnerHTML={{__html: `
 (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
    m[i].l=1*new Date();
@@ -23,7 +25,13 @@ class MyDocument extends Document {
         clickmap:true,
         trackLinks:true,
         accurateTrackBounce:true
-   });`}} >
+   });
+   window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-DTHZT6R255');
+   `}} >
   
 </script>
 

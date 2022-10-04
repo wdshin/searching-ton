@@ -16,7 +16,6 @@ interface ParseUrlResult {
 }
 
 const isInnerLink = (link: string) => {
-  console.log(link)
   return link.startsWith("/")
 }
 
@@ -44,7 +43,6 @@ class Parser {
 
       // собираем все ссылки и складываем их в сэт для дальнейшей обработки
       dom.window.document.querySelectorAll("a").forEach(({ href }) => {
-        console.log(href)
         if (isInnerLink(href)) {
           const url = new URL("ton://a.ton" + href)
           if (!isInvalidLink(url.pathname)) {
