@@ -41,9 +41,6 @@ body {
   src: url(/IBMPlexMono-Bold.woff2) format("woff2");
 }
 
-body {
-  background: #08c;
-}
 html,
 #__next {
   position: relative;

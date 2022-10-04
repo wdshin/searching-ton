@@ -14,7 +14,10 @@ const Pagination = ({ currentPage, pagesCount, onPageChange }: Props) => {
       <ReactPaginate
         breakLabel="..."
         nextLabel=">"
-        onPageChange={(params) => onPageChange(params.selected)}
+        onPageChange={(params) => {
+          window.scrollTo(0,0);
+          onPageChange(params.selected);
+        }}
         pageRangeDisplayed={3}
         pageCount={pagesCount}
         previousLabel="<"
