@@ -11,10 +11,25 @@ class MyDocument extends Document {
       <Html lang="en">
         <Head />
         <body>
-          <Main />
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-DTHZT6R255"></script>
+          <script async src="https://www.googletagmanager.com/gtag/js?id=G-DTHZT6R255"></script>
+          <script
+            type="text/javascript"
+            dangerouslySetInnerHTML={{
+              __html: `
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
 
-<script type="text/javascript" dangerouslySetInnerHTML={{__html: `
+  gtag('config', 'G-DTHZT6R255');
+   `,
+            }}
+          />
+
+          <Main />
+          <script
+            type="text/javascript"
+            dangerouslySetInnerHTML={{
+              __html: `
 (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
    m[i].l=1*new Date();
    for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
@@ -22,8 +37,8 @@ class MyDocument extends Document {
    (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
 
    ym(90644479, "init", {
-        clickmap:true,
-        trackLinks:true,
+        clickmap:false,
+        trackLinks:false,
         accurateTrackBounce:true
    });
    window.dataLayer = window.dataLayer || [];
@@ -31,10 +46,9 @@ class MyDocument extends Document {
   gtag('js', new Date());
 
   gtag('config', 'G-DTHZT6R255');
-   `}} >
-  
-</script>
-
+   `,
+            }}
+          ></script>
 
           <NextScript />
           <div id="modal-root"></div>

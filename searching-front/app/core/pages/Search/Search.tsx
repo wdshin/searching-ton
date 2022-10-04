@@ -5,17 +5,18 @@ import WebsiteCard from "app/core/components/WebsiteCard"
 import getSearchResult from "app/search-requests/queries/getSearchResult"
 import { useRouter } from "next/router"
 import { useState } from "react"
+import { useTranslation } from "react-i18next"
 import ReactPaginate from "react-paginate"
 import s from "./styles.module.css"
 
 const Search = () => {
   const router = useRouter()
-
+  const {t} = useTranslation()
   const [page, setPage] = useState(0)
-
+  const text = router.query.query as string;
   const [res] = useQuery(
     getSearchResult,
-    { text: router.query.query as string, page },
+    { text, page },
     { suspense: false, keepPreviousData: true }
   )
   const onPageChange = (page: number) => {
@@ -41,7 +42,8 @@ const Search = () => {
         </div>
       )
     } else if (res && !res.hits.length) {
-      return "not found"
+      return <div>{t("searchPage.notFound")}<b>«{text}»</b></div>
+      
     }
     return "loading"
   }

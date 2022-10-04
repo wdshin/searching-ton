@@ -52,11 +52,15 @@ const SearchForm = () => {
     setFocusedSuggestion(null)
     await router.push(Routes.SearchPage({ query }))
   }
+
+  const filteredSuggestion = suggestions?.filter((item) => item.text !== value)
+  const shouldShowSuggestion = filteredSuggestion && !!filteredSuggestion.length
+
   useKeyPressEvent("Enter", async () => {
     if (inputIsFocused) {
       blurInput()
       if (filteredSuggestion?.length && suggestions && focusedSuggestion) {
-        await onSubmit(suggestions[focusedSuggestion - 1]?.text)
+        await onSubmit(filteredSuggestion[focusedSuggestion - 1]?.text)
       } else {
         await onSubmit(value)
       }
@@ -111,9 +115,8 @@ const SearchForm = () => {
     setInputFocused(true)
   }, [])
 
-  const filteredSuggestion = suggestions?.filter((item) => item.text !== value)
-  const shouldShowSuggestion = filteredSuggestion && !!filteredSuggestion.length
-
+  
+  debugger
   return (
     <AnimatePresence>
       <motion.div layoutId="searchForm" className={s.root}>
