@@ -11,7 +11,6 @@ const findFirstNotIndexed = (subpages: SubPages = {}) => {
 }
 
 const indexWebsite = async (domain: string, path: string, subpages: SubPages = {}) => {
-  console.log('Start indexWebsite ', domain)
   if (!subpages[path]) {
     const url = domain + path;
     const parseInfo = await Parser.parseUrl(url)
@@ -26,7 +25,6 @@ const indexWebsite = async (domain: string, path: string, subpages: SubPages = {
     } else {
       pages = subpages
     }
-    console.log(pages)
     const firstNotIndexed = findFirstNotIndexed(pages)
     if (firstNotIndexed) {
       return await indexWebsite(domain, firstNotIndexed, pages)

@@ -5,6 +5,7 @@ import s from "./styles.module.css"
 import Header from "app/core/components/Header"
 import { cn } from "app/core/helpers/common"
 import { useCurrentTheme } from "app/core/hooks/useCurrentTheme"
+import Footer from "app/core/components/Footer"
 
 const Layout: BlitzLayout<{
   title?: string
@@ -28,6 +29,7 @@ const Layout: BlitzLayout<{
       >
         <Header />
         <div className={cn(s.content, { [s.withoutPaddings]: withoutPaddings })}>{children}</div>
+        <Footer/>
       </div>
     </>
   )

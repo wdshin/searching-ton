@@ -28,7 +28,6 @@ import {
 import { gSSP } from "app/blitz-server"
 
 const Home: BlitzPage = (props) => {
-  console.log("\n\n\n SERVER SIDE", props)
   return (
     <ErrorBoundary
       FallbackComponent={ErrorFallback}
@@ -37,7 +36,7 @@ const Home: BlitzPage = (props) => {
       }}
     >
       <ServerSidePropsContext.Provider value={props}>
-        <Layout title="Home" withoutPaddings>
+        <Layout title="Searching" withoutPaddings>
           <Suspense fallback="Loading...">
             <Main />
           </Suspense>

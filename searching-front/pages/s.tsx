@@ -36,7 +36,7 @@ const SearchPage: BlitzPage = (props) => {
       }}
     >
       <ServerSidePropsContext.Provider value={props}>
-        <Layout title="Home">
+        <Layout title="Searching">
           <Suspense fallback="Loading...">
             <Search />
           </Suspense>
