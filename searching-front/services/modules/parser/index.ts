@@ -69,7 +69,7 @@ class Parser {
         subPages,
       }
     } catch (e) {
-      console.log("Error", e)
+      console.log("Parse error ", url)
       return SHOULD_NOT_PARSE
     }
   }

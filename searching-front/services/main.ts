@@ -6,9 +6,13 @@ import parser from './parser'
 
 const run = async()=>{
     console.log('Start domain watcher')
+    console.time('watcher')
     await domainWatcher();
-    console.log('Start parser')
+    console.timeEnd('watcher')
+    console.log('Start parser');
+    console.time('watcher');
     await parser();
+    console.timeEnd('watcher');
 }
 
 const second = 1000;
