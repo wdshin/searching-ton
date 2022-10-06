@@ -12,7 +12,7 @@ const findFirstNotIndexed = (subpages: SubPages = {}) => {
 
 const indexWebsite = async (domain: string, path: string, subpages: SubPages = {}) => {
   const subpagesLength = Object.keys(subpages).length;
-  if (!subpages[path] && subpagesLength < 100) {
+  if (!subpages[path] && subpagesLength < 50) {
     const url = domain + path;
     const parseInfo = await Parser.parseUrl(url)
     subpages[path] = true
@@ -41,12 +41,10 @@ const indexWebsite = async (domain: string, path: string, subpages: SubPages = {
 
 const main = async () => {
   await Elastic.initElastic()
-  console.log('Success InitElastic')
   const domains = await db.nftDomain.findMany()
   console.log('Find domains', domains)
   if (domains) {
     for (const domain of domains) {
-      console.log('Update ', domain)
       await db.nftDomain.update({
         where: { address: domain.address },
         data: { lastParse: new Date() },
