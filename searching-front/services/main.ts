@@ -11,7 +11,7 @@ const run = async()=>{
     console.timeEnd('watcher')
     console.log('Start parser');
     console.time('watcher');
-    await parser();
+    // await parser();
     console.timeEnd('watcher');
 }
 
