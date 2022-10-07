@@ -4,6 +4,7 @@ import { useQuery } from "@blitzjs/rpc"
 import { useState } from "react"
 import { useTranslation } from "react-i18next"
 import { ChartData } from "chart.js/auto"
+import "chart.js/auto"
 
 import getActualSitesState from "app/stateSites/queries/getActualSitesState"
 import getHistoryOfSitesState from "app/stateSites/queries/getHistoryOfSitesState"

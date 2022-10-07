@@ -44,7 +44,7 @@ const StatePage: BlitzPage<StatePageProps> = (props) => {
   )
 }
 
-export const getStaticProps = gSP(async ({ params, ctx }): StaticPageProps<StatePageProps> => {
+export const getServerSideProps = async ({ params, ctx }): StaticPageProps<StatePageProps> => {
   const actualState = await getActualSitesState();
   const historyOfState = await getHistoryOfSitesState();
   return {
@@ -53,6 +53,6 @@ export const getStaticProps = gSP(async ({ params, ctx }): StaticPageProps<State
       historyOfState
     },
   }
-})
+}
 
 export default StatePage
