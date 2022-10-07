@@ -15,11 +15,18 @@ services:
       - "discovery.type=single-node"
     ports:
       - 9200:9200
-  # proxy:
-  #   platform: linux/x86_64
-  #   build: ./proxy
-  #   volumes: 
-  #     - ./proxy:/app
+  influxdb:
+    image: influxdb:2.4-alpine
+    ports:
+      - '8086:8086'
+    volumes:
+      - influxdb-storage:/var/lib/influxdb
+    env_file: ./searching-front/.env.local
+  proxy:
+    platform: linux/x86_64
+    build: ./proxy
+    volumes: 
+      - ./proxy:/app
   front:
     container_name: front
     build: ./searching-front
@@ -45,3 +52,4 @@ networks:
 
 volumes:
  dbdata:
+ influxdb-storage:

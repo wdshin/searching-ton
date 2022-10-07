@@ -45,7 +45,7 @@ class Parser {
       dom.window.document.querySelectorAll("a").forEach(({ href }) => {
         if (isInnerLink(href)) {
           const url = new URL("ton://a.ton" + href)
-          if (!isInvalidLink(url.pathname)) {
+          if (!isInvalidLink(url.pathname) && [...subPagesSet].length < 50 ) {
             subPagesSet.add(url.pathname)
           }
         }

@@ -10,14 +10,14 @@ const findFirstNotIndexed = (subpages: SubPages = {}) => {
   return Object.entries(subpages).find(([url, isIndexed]) => !isIndexed)?.[0]
 }
 
-const indexWebsite = async (domain: string, path: string, subpages: SubPages = {}) => {
+const indexWebsite = async (domain: string, path: string, subpages: SubPages = {},count=0) => {
   const subpagesLength = Object.keys(subpages).length;
-  if (!subpages[path] && subpagesLength < 50) {
+  if (!subpages[path]) {
     const url = domain + path;
     const parseInfo = await Parser.parseUrl(url)
     subpages[path] = true
     let pages = {}
-    if (parseInfo !== SHOULD_NOT_PARSE) {
+    if (parseInfo !== SHOULD_NOT_PARSE && subpagesLength < 50) {
       await Elastic.index(parseInfo.elasticData)
       pages = {
         ...parseInfo.subPages,
@@ -28,12 +28,12 @@ const indexWebsite = async (domain: string, path: string, subpages: SubPages = {
     }
     const firstNotIndexed = findFirstNotIndexed(pages)
     if (firstNotIndexed) {
-      return await indexWebsite(domain, firstNotIndexed, pages)
+      return await indexWebsite(domain, firstNotIndexed, pages, count +1)
     }
   } else {
     const firstNotIndexed = findFirstNotIndexed(subpages)
     if (firstNotIndexed) {
-      return await indexWebsite(domain, firstNotIndexed, subpages)
+      return await indexWebsite(domain, firstNotIndexed, subpages, count +1)
     }
   }
 }
