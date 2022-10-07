@@ -7,6 +7,9 @@ const ru = {
     "footer.linkContacts": "Связаться с нами",
     "footer.linkAnnouncments": "Новости",
     "footer.linkFeedback": "Оставить обратную связь",
+
+    "state.siteOutOf": " сайтов из ",
+    "state.areNowAvailable": " сейчас доступны!",
   },
 }
 

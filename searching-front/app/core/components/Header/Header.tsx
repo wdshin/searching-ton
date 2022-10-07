@@ -7,7 +7,7 @@ import s from "./styles.module.css"
 
 const Header = () => {
   const { route } = useRouter()
-  const shouldShowSearchForm = route === Routes.SearchPage().pathname
+  const shouldShowSearchForm = route !== Routes.Home().pathname
   const router = useRouter()
   const toMain = async () => {
     await router.push("/")

@@ -1,10 +1,9 @@
 export enum InfluxPeriod {
-    H='H',
-    D='D',
-    W='W',
-    M='M',
-    Y='Y',
-    tenminute='tenminute',
+    H='Hour',
+    D='Day',
+    // W='Week',
+    // M='Month',
+    // Y='Year',
 }
 
 export enum InfluxField {

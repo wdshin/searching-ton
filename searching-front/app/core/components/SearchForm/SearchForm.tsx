@@ -115,8 +115,6 @@ const SearchForm = () => {
     setInputFocused(true)
   }, [])
 
-  
-  debugger
   return (
     <AnimatePresence>
       <motion.div layoutId="searchForm" className={s.root}>

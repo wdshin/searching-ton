@@ -5,7 +5,7 @@ import { z } from "zod";
 
 const GetSearchRequest = z.object({
   // This accepts type of undefined, but is required at runtime
-  text: z.string()
+  text: z.string().optional()
 });
 
 export default resolver.pipe(

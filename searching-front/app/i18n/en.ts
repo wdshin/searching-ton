@@ -7,6 +7,10 @@ const en = {
     "footer.linkContacts": "Contact Us",
     "footer.linkAnnouncments": "Announcments",
     "footer.linkFeedback": "Feedback",
+
+    "state.title": "State Of Ton Sites",
+    "state.siteOutOf": " sites out of ",
+    "state.areNowAvailable": " are now available!",
   },
 }
 

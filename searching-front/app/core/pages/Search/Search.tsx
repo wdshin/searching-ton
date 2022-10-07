@@ -11,9 +11,9 @@ import s from "./styles.module.css"
 
 const Search = () => {
   const router = useRouter()
-  const {t} = useTranslation()
+  const { t } = useTranslation()
   const [page, setPage] = useState(0)
-  const text = router.query.query as string;
+  const text = router.query.query as string
   const [res] = useQuery(
     getSearchResult,
     { text, page },
@@ -33,17 +33,23 @@ const Search = () => {
             ))}
           </div>
           <div className={s.pagination}>
-            <Pagination
-              onPageChange={onPageChange}
-              currentPage={page}
-              pagesCount={res.pagesCount}
-            />
+            {res.pagesCount > 1 && (
+              <Pagination
+                onPageChange={onPageChange}
+                currentPage={page}
+                pagesCount={res.pagesCount}
+              />
+            )}
           </div>
         </div>
       )
     } else if (res && !res.hits.length) {
-      return <div>{t("searchPage.notFound")}<b>«{text}»</b></div>
-      
+      return (
+        <div>
+          {t("searchPage.notFound")}
+          <b>«{text}»</b>
+        </div>
+      )
     }
     return "loading"
   }
