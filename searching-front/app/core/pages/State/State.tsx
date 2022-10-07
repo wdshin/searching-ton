@@ -126,12 +126,16 @@ const State = ({ actualState, historyOfState: historyOfStatePreloaded }: StatePa
             ))}
           </div>
           <HistoryItem
-            title="All sites count"
-            data={getGraphData(historyOfState.all, "All sites count", availableSitesColor)}
+            title="Available sites count"
+            data={getGraphData(
+              historyOfState.available,
+              "Available sites count",
+              availableSitesColor
+            )}
           />
           <HistoryItem
-            title="Available sites count"
-            data={getGraphData(historyOfState.available, "Available sites count", allSitesColor)}
+            title="All sites count"
+            data={getGraphData(historyOfState.all, "All sites count", allSitesColor)}
           />
         </div>
       )}
