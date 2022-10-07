@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "scripts": {
     "watcher": "ts-node-esm ./services/main.ts",
+    "influx": "ts-node-esm ./services/influx.ts",
     "parser": "ts-node-esm ./services/parser.ts",
     "dev": "blitz dev",
     "build": "blitz build",
@@ -30,6 +31,8 @@
     "@blitzjs/rpc": "2.0.0-beta.3",
     "@elastic/elasticsearch": "8.2.1",
     "@hookform/resolvers": "2.9.7",
+    "@influxdata/influxdb-client": "1.31.0",
+    "@influxdata/influxdb-client-apis": "1.31.0",
     "@prisma/client": "4.2.1",
     "@types/html-to-text": "8.1.1",
     "@types/textversionjs": "1.1.1",
