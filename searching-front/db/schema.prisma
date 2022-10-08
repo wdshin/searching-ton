@@ -95,4 +95,5 @@ model NftDomain {
   address   String   @unique
   available Boolean
   lastParse DateTime?
+  firstAvailableDate DateTime?
 }
