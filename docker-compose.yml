@@ -12,7 +12,6 @@ services:
     image: elasticsearch:8.4.0
     volumes:
       - elastic:/usr/share/elasticsearch/data
-
     environment:
       - xpack.security.enabled=false
       - "discovery.type=single-node"
@@ -29,6 +28,10 @@ services:
     container_name: front
     build: ./searching-front
     restart: always
+    depends_on:
+      - elasticsearch
+      - db
+      - influxdb
   watcher:
     container_name: watcher
     depends_on:
