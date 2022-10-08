@@ -37,7 +37,7 @@ export const influxQuery = (field: InfluxField, fetchPeriod: InfluxPeriod) => {
     |> filter(fn: (r) => r["host"] == "${influxHost}")
     |> filter(fn: (r) => r["_field"] == "${field}")
     |> filter(fn: (r) => r["_measurement"] == "${influxPointName}")
-    |> aggregateWindow(every: ${period}, fn: mean, createEmpty: false)
+    |> aggregateWindow(every: ${period}, fn: last, createEmpty: false)
     |> yield(name: "last")`
 
   return query
