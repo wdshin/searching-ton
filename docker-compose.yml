@@ -4,7 +4,7 @@ services:
   db:
     image: postgres:latest
     volumes:
-     - dbdata:/var/lib/postgresql/data
+     - /home/matthew/volumes/db:/var/lib/postgresql/data
     env_file: ./searching-front/.env.local #Here we are using the already existing .env.local file
     ports:
       - "5432:5432"
@@ -15,12 +15,14 @@ services:
       - "discovery.type=single-node"
     ports:
       - 9200:9200
+    volumes:
+     - /home/matthew/volumes/elastic:/usr/share/elasticsearch/data
   influxdb:
     image: influxdb:2.4-alpine
     ports:
       - '8086:8086'
     volumes:
-      - influxdb-storage:/var/lib/influxdb
+      - /home/matthew/volumes/influx:/var/lib/influxdb
     env_file: ./searching-front/.env.local
   front:
     container_name: front
@@ -45,6 +47,3 @@ networks:
   es-net:
     driver: bridge
 
-volumes:
- dbdata:
- influxdb-storage:
