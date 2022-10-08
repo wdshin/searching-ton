@@ -125,7 +125,7 @@ class Elastic {
       query: {
         multi_match: {
           query: text,
-          fields: ["title^4", "description^3", "h1^2", "bodyText"],
+          fields: ["title^4"],
         },
       },
     })
