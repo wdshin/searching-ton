@@ -21,4 +21,5 @@ COPY . .
 # ENV NEXT_TELEMETRY_DISABLED 1
 
 RUN npm run build
+RUN npm run migrate:prod
 CMD ["npm", "run", "start"]

@@ -11,7 +11,8 @@
     "studio": "blitz prisma studio",
     "lint": "eslint --ignore-path .gitignore --ext .js,.ts,.tsx .",
     "test": "jest",
-    "test:watch": "jest --watch"
+    "test:watch": "jest --watch",
+    "migrate:prod": "blitz prisma migrate deploy"
   },
   "prisma": {
     "schema": "db/schema.prisma"
