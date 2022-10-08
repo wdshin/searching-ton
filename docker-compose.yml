@@ -44,6 +44,8 @@ services:
     restart: always
   nginx:
     restart: always
+    depends_on:
+      - front
     build:
       context: ./nginx
     ports:
