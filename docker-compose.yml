@@ -28,6 +28,7 @@ services:
     container_name: front
     build: ./searching-front
     restart: always
+
   watcher:
     container_name: watcher
     depends_on:
