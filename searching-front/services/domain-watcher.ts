@@ -19,14 +19,23 @@ interface SearchNFTItemsParams {
 }
 
 const getFullUrl = (dmn: string) => `http://${dmn}`
-const upsertDmn = async (dmn: string, available: boolean) =>
-  await db.nftDomain.upsert({
+const upsertDmn = async (dmn: string, available: boolean) => {
+  const domainFromDB = await db.nftDomain.findFirst({where:{address: getFullUrl(dmn)}})
+  const shouldUpdateFirstAvailableDate = !domainFromDB?.firstAvailableDate && available;
+
+  const upsertObj = { available, address: getFullUrl(dmn) };
+  if(shouldUpdateFirstAvailableDate){
+    upsertObj.firstAvailableDate = new Date();
+  }
+  return await db.nftDomain.upsert({
     where: {
       address: getFullUrl(dmn),
     },
-    update: { available, address: getFullUrl(dmn) },
-    create: { available, address: getFullUrl(dmn) },
+    update: upsertObj,
+    create: upsertObj,
   })
+}
+
 
 const wait = (time: number) => new Promise((resolve) => setTimeout(() => resolve(true), time))
 
@@ -76,30 +85,36 @@ const main = async () =>
         limit: portion,
         offset: count * portion,
       })
-
       if (nftItems.length) {
+        console.time('fetchDomain')
+        const promises1: Promise<unknown>[] = []
         for (let i = 0; i < nftItems.length; i++) {
           const nftDomainItem = nftItems[i]
           if (nftDomainItem.dns) {
-            fetchTonSite(nftDomainItem.dns)
+            
+            promises1.push(fetchTonSite(nftDomainItem.dns)
               .then(async (dmn) => {
                 console.log("success dmn", dmn)
                 upsertDmn(dmn, true)
               })
               .catch((dmn) => {
                 upsertDmn(dmn,false)
-              })
+              }))
+              
           }
         }
         count++
+        await Promise.all(promises1)
+        console.timeEnd('fetchDomain')
         continue
       }
       break
     }
+
     console.log("Finish fetch nft")
     setTimeout(() => {
       resolve(true)
-    }, 10000)
+    }, 3000)
   })
 
 export default main
