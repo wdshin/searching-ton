@@ -35,7 +35,7 @@ const StatePage: BlitzPage<StatePageProps> = (props) => {
     >
       <ServerSidePropsContext.Provider value={props}>
         <Layout title="State of TON Sites" withoutPaddings>
-          <Suspense fallback="Loading...">
+          <Suspense fallback="Loading....">
             <State {...props} />
           </Suspense>
         </Layout>
