@@ -4,32 +4,31 @@ services:
   db:
     image: postgres:latest
     volumes:
-     - /home/matthew/volumes/db:/var/lib/postgresql/data
+     - dbdata:/var/lib/postgresql/data
     env_file: ./searching-front/.env.local #Here we are using the already existing .env.local file
     ports:
       - "5432:5432"
   elasticsearch:
     image: elasticsearch:8.4.0
+    volumes:
+      - elastic:/usr/share/elasticsearch/data
+
     environment:
       - xpack.security.enabled=false
       - "discovery.type=single-node"
     ports:
       - 9200:9200
-    volumes:
-     - /home/matthew/volumes/elastic:/usr/share/elasticsearch/data
   influxdb:
     image: influxdb:2.4-alpine
     ports:
       - '8086:8086'
     volumes:
-      - /home/matthew/volumes/influx:/var/lib/influxdb
+      - influxdb-storage:/var/lib/influxdb
     env_file: ./searching-front/.env.local
   front:
     container_name: front
     build: ./searching-front
     restart: always
-    ports:
-      - 3000:3000
   watcher:
     container_name: watcher
     depends_on:
@@ -49,6 +48,7 @@ networks:
   es-net:
     driver: bridge
 
-# volumes:
-#  dbdata:
-#  influxdb-storage:
+volumes:
+ dbdata:
+ influxdb-storage:
+ elastic:
