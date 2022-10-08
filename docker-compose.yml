@@ -6,8 +6,8 @@ services:
     volumes:
      - dbdata:/var/lib/postgresql/data
     env_file: ./searching-front/.env.local #Here we are using the already existing .env.local file
-    ports:
-      - "5432:5432"
+    # ports:
+    #   - "5432:5432"
   elasticsearch:
     image: elasticsearch:8.4.0
     volumes:
