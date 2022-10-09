@@ -89,6 +89,7 @@ const State = ({
   historyOfState: historyOfStatePreloaded,
   lastWeekNewSites,
 }: StatePageProps) => {
+  const nowDate = format(new Date(),'d MMMM').toLowerCase();
   const [historyPeriod, setHistoryPeriod] = useState(InfluxPeriod.D)
   const { t } = useTranslation()
   const [historyOfState] = useQuery(getHistoryOfSitesState, historyPeriod, {
@@ -105,7 +106,7 @@ const State = ({
           <span className={s.allCount}>/ {actualState.allDomainsCount}</span>
           <div className={s.counterFooter}>
             <div className={s.areNowAvailable}>{t("state.areNowAvailable")}</div>
-            <div className={s.counterDate}>9 september</div>
+            <div className={s.counterDate}>{nowDate}</div>
           </div>
         </div>
       </div>
