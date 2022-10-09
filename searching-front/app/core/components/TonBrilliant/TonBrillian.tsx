@@ -9,8 +9,8 @@ const TonBrilliant = () => {
     <div className={s.root}>
       <video
         className={s.video}
-        width="300"
-        height="300"
+        width="200"
+        height="200"
         autoPlay
         loop
         playsinline

@@ -1,5 +1,6 @@
 .root {
-  width: 55vw;
+  width: 100%;
+  max-width: 600px;
   font-size: 18px;
   position: relative;
   z-index: 101;

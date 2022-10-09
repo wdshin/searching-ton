@@ -1,4 +1,5 @@
 import { Routes } from "@blitzjs/next"
+import { cn } from "app/core/helpers/common"
 import TonLogo from "app/core/icons/TonLogo"
 import { useRouter } from "next/router"
 import SearchForm from "../SearchForm"
@@ -14,12 +15,13 @@ const Header = () => {
   }
 
   return (
-    <div className={s.root}>
+    <div className={cn(s.root, { [s.withBorder]: shouldShowSearchForm })}>
       <div onClick={toMain} className={s.logoWrapper}>
         <TonLogo /> <span>TON SEARCHING</span>
       </div>
       {shouldShowSearchForm && <SearchForm />}
       {/* <ThemeSwitcher /> */}
+      <div className={s.rightFiller}/>
     </div>
   )
 }

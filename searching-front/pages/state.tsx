@@ -5,15 +5,18 @@ import getActualSitesState from "app/stateSites/queries/getActualSitesState"
 import getHistoryOfSitesState from "app/stateSites/queries/getHistoryOfSitesState"
 import { BlitzPage } from "@blitzjs/next"
 import State from "app/core/pages/State"
-import { gSP } from "app/blitz-server"
+import { gSSP } from "app/blitz-server"
+import {
+  serverSideProps,
+  ServerSidePropsContext,
+} from "app/core/contextProviders/serverSidePropsProvider"
 
 import { ErrorBoundary } from "@blitzjs/next"
 
-import {
-  ServerSidePropsContext,
-} from "app/core/contextProviders/serverSidePropsProvider"
 import { StatePageProps } from "app/core/pages/State/State"
 import { StaticPageProps } from "app/core/commonTypes"
+import ContextProviders from "app/core/components/ContextProviders"
+import getLastWeekNewSites from "app/stateSites/queries/getLastWeekNewSites"
 
 function ErrorFallback({ error, resetErrorBoundary }) {
   return (
@@ -25,7 +28,8 @@ function ErrorFallback({ error, resetErrorBoundary }) {
   )
 }
 
-const StatePage: BlitzPage<StatePageProps> = (props) => {
+const StatePage: BlitzPage = (props) => {
+  
   return (
     <ErrorBoundary
       FallbackComponent={ErrorFallback}
@@ -33,26 +37,27 @@ const StatePage: BlitzPage<StatePageProps> = (props) => {
         // reset the state of your app so the error doesn't happen again
       }}
     >
-      <ServerSidePropsContext.Provider value={props}>
+      <ContextProviders contextParamsServer={props}>
         <Layout title="State of TON Sites" withoutPaddings>
           <Suspense fallback="Loading....">
             <State {...props} />
           </Suspense>
         </Layout>
-      </ServerSidePropsContext.Provider>
+      </ContextProviders>
     </ErrorBoundary>
   )
 }
 
-export const getServerSideProps = async ({ params, ctx }): StaticPageProps<StatePageProps> => {
-  const actualState = await getActualSitesState();
-  const historyOfState = await getHistoryOfSitesState();
-  return {
-    props: {
+export const getServerSideProps = gSSP(
+  serverSideProps(async (): Promise<StatePageProps> => {
+    const actualState = await getActualSitesState()
+    const historyOfState = await getHistoryOfSitesState()
+    return {
       actualState,
-      historyOfState
-    },
-  }
-}
+      historyOfState,
+      ...(await getLastWeekNewSites()),
+    }
+  })
+)
 
 export default StatePage

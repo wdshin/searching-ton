@@ -1,26 +1,106 @@
 .root {
-  /* margin-right: var(--logoWrapperWidth); */
+  width: 100vw;
+  max-width: 600px;
+  margin: 0 auto;
 }
 
 .actualStateWrapper {
+  width: 100%;
+  padding: 20px 24px;
   font-size: 20px;
   display: flex;
-  justify-content: center;
-  align-items: center;
+  flex-direction: column;
+  background: rgba(26, 148, 255, 0.06);
+  border-radius: var(--border_radius_base);
+  margin-bottom: 60px;
+  box-sizing: border-box;
 }
 .availableCount {
-  font-size: 100px;
-  margin-right: 10px;
-  color: var(--button_primary);
-  font-weight: bold;
+  font-weight: 700;
+  font-size: 32px;
+  line-height: 40px;
+  margin-right: 8px;
 }
 .allCount {
-  margin: 0px 10px;
-  font-size: 30px;
-  color: var(--text_secondary);
-  font-weight: bold;
+  font-size: 24px;
+  line-height: 30px;
+  color: #ffffff;
+  opacity: 0.4;
 }
 .areNowAvailable {
+  margin-top: 6px;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 20px;
+}
+
+.counterFooter {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+.counterDate {
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 15px;
+
+  color: #ffffff;
+  opacity: 0.32;
+}
+
+.newestTitle {
+  text-align: center;
+  font-weight: 900;
+  font-size: 32px;
+  line-height: 40px;
+  margin-bottom: 32px;
+}
+.newestTitleTon {
+  color: var(--button_primary);
+}
+
+.newestListWrapper {
+  display: flex;
+  flex-direction: column;
+}
+.newestListItem {
+  padding: 24px 34px;
+  border-radius: var(--border_radius_base);
+  border: 1px solid var(--border_color_main);
+  text-transform: capitalize;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 20px;
+  cursor: pointer;
+  position: relative;
+}
+
+.siteButton.siteButton {
+  width: 52px;
+  height: 41px;
+  font-size: 20px;
+  line-height: 25px;
+  border-radius: 16px;
+  transition: opacity 0.2s ease-in-out;
+  padding: 0;
+  background-color: var(--background_secondary);
+  margin-left: 8px;
+  
+}
+
+.newestListItem:hover .siteButton.siteButton {
+  background-color: var(--button_primary);
+}
+
+.button {
+  position: absolute;
+  top: 2px;
+  right: 22px;
+  background-color: var(--background_secondary);
+}
+
+.newestListItem:not(:last-child) {
+  margin-bottom: 20px;
 }
 .doughnutAvailable {
   width: 200px;

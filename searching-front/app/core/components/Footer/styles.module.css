@@ -2,7 +2,8 @@
   margin-top: 30px;
   box-sizing: border-box;
   display: flex;
-  justify-content: center;
+  border-top: 1px solid var(--border_color_main);
+  padding: var(--layout-padding);
 }
 
 .tgIcon {
@@ -14,15 +15,20 @@
 .contactsWrapper {
   flex: 1;
   display: flex;
-  justify-content: space-between;
   align-items: center;
   color: var(--text_secondary);
   max-width: 600px;
 }
 
 .footerLinkRoot {
+  font-size: 15px;
+  font-weight: 700;
   text-decoration: none;
-  color: var(--text_secondary);
-  display: flex;
-  align-items: center;
+  
+  background: var(--footer_link_color);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: #0B2349;
+  display: table;
+  margin-right: 40px;
 }

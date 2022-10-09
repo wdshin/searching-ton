@@ -26,8 +26,16 @@ import {
   ServerSidePropsContext,
 } from "app/core/contextProviders/serverSidePropsProvider"
 import { gSSP } from "app/blitz-server"
+import ContextProviders from "app/core/components/ContextProviders"
+import getLastWeekNewSites from "app/stateSites/queries/getLastWeekNewSites"
+import { NftDomain } from "@prisma/client"
 
-const Home: BlitzPage = (props) => {
+interface Props {
+  lastWeekNewSites: NftDomain[]
+  cookies: Record<string,string>
+}
+
+const Home: BlitzPage<Props> = (props) => {
   return (
     <ErrorBoundary
       FallbackComponent={ErrorFallback}
@@ -35,17 +43,23 @@ const Home: BlitzPage = (props) => {
         // reset the state of your app so the error doesn't happen again
       }}
     >
-      <ServerSidePropsContext.Provider value={props}>
+      <ContextProviders contextParamsServer={props}>
         <Layout title="Searching" withoutPaddings>
           <Suspense fallback="Loading...">
-            <Main />
+            <Main lastWeekNewSites={props.lastWeekNewSites}/>
           </Suspense>
         </Layout>
-      </ServerSidePropsContext.Provider>
+      </ContextProviders>
     </ErrorBoundary>
   )
 }
 
-export const getServerSideProps = gSSP(serverSideProps)
+export const getServerSideProps = gSSP(
+  serverSideProps(async () => {
+    return {
+      ...(await getLastWeekNewSites()),
+    }
+  })
+)
 
 export default Home

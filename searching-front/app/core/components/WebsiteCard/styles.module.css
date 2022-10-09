@@ -22,12 +22,13 @@
 }
 .miniLink {
   text-decoration: none;
-  font-size: 14px;
-  color: var(--text_light_secondary);
+  font-size: 13px;
+  color: var(--text_secondary);
   max-width: 300px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  font-weight: bold;
 }
 
 .description {

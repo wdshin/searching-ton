@@ -1,5 +1,6 @@
 .root {
   /* position: relative; */
+  margin-bottom: 20px;
 }
 
 .video {
@@ -10,12 +11,12 @@
 .root:before {
   content: "";
   z-index: 0;
-  max-width: 690px;
-  max-height: 690px;
+  max-width: 400px;
+  max-height: 400px;
   width: 100vw;
   height: 100vh;
   position: absolute;
-  top: -234px;
+  top: -360px;
   left: 0;
   right: 0;
   bottom: 0;

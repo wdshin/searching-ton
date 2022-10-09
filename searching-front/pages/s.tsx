@@ -1,11 +1,6 @@
 import { Suspense } from "react"
-import Image from "next/image"
-import Link from "next/link"
 import Layout from "app/core/layouts/Layout"
-import { useCurrentUser } from "app/core/hooks/useCurrentUser"
-import logout from "app/auth/mutations/logout"
-import logo from "public/logo.png"
-import { useMutation } from "@blitzjs/rpc"
+
 import { Routes, BlitzPage } from "@blitzjs/next"
 import Search from "app/core/pages/Search"
 
@@ -15,6 +10,7 @@ import {
   serverSideProps,
   ServerSidePropsContext,
 } from "app/core/contextProviders/serverSidePropsProvider"
+import ContextProviders from "app/core/components/ContextProviders"
 
 function ErrorFallback({ error, resetErrorBoundary }) {
   return (
@@ -35,17 +31,17 @@ const SearchPage: BlitzPage = (props) => {
         // reset the state of your app so the error doesn't happen again
       }}
     >
-      <ServerSidePropsContext.Provider value={props}>
+      <ContextProviders contextParamsServer={props}>
         <Layout title="Searching">
           <Suspense fallback="Loading....">
             <Search />
           </Suspense>
         </Layout>
-      </ServerSidePropsContext.Provider>
+      </ContextProviders>
     </ErrorBoundary>
   )
 }
 
-export const getServerSideProps = gSSP(serverSideProps)
+export const getServerSideProps = gSSP(serverSideProps())
 
 export default SearchPage

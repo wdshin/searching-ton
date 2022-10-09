@@ -31,6 +31,7 @@ class Parser {
       const { data, headers } = await axios.get(url,{
         proxy: getTonProxy(),
       })
+
       const contentType = headers["content-type"].toLocaleLowerCase()
 
       if (!contentType.startsWith('text/html')) {
@@ -69,7 +70,7 @@ class Parser {
         subPages,
       }
     } catch (e) {
-      console.log("Parse error ", url)
+      console.log("Parse error ",e, url)
       return SHOULD_NOT_PARSE
     }
   }

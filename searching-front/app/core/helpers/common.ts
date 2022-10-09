@@ -8,3 +8,5 @@ export const cleanUrlForUi = (url: string) => {
 export const isNode = () => {
   return typeof window !== "object"
 }
+
+export const getDomainFromUrl = (url: string) => url.match(/http:\/\/(.*).ton/)?.[1]

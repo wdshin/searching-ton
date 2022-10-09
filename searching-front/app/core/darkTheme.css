@@ -1,4 +1,8 @@
-#layout.dark {
+
+/* :after,
+:before, */
+#layout.dark,
+#layout.dark::before {
   --background_main: #232328;
   --background_gradient: linear-gradient(0deg, #232328, #343437 101.47%);
   --background_secondary: hsl(240 2% 23% / 1);
@@ -29,4 +33,8 @@
   --icon_primary: #02a8fb;
   --separator: hsla(0, 0%, 100%, 0.06);
   --color_link: hsl(200 50% 70% / 1);
+
+  --footer_link_color: linear-gradient(270deg, #81CBFA 0%, #459FE8 104.65%);
+  /* only dark theme */
+  --border_color_main:#2E2E32;
 }

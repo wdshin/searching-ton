@@ -11,10 +11,12 @@ const findFirstNotIndexed = (subpages: SubPages = {}) => {
 }
 
 const indexWebsite = async (domain: string, path: string, subpages: SubPages = {},count=0) => {
+  console.log(subpages)
   const subpagesLength = Object.keys(subpages).length;
   if (!subpages[path]) {
     const url = domain + path;
     const parseInfo = await Parser.parseUrl(url)
+    console.log(parseInfo)
     subpages[path] = true
     let pages = {}
     if (parseInfo !== SHOULD_NOT_PARSE && subpagesLength < 50) {
@@ -40,6 +42,9 @@ const indexWebsite = async (domain: string, path: string, subpages: SubPages = {
 
 
 const main = async () => {
+  await indexWebsite('http://planets.ton', "/")
+  console.log('finish')
+  return
   await Elastic.initElastic()
   const domains = await db.nftDomain.findMany({where:{available: true}})
   console.log('Find domains', domains)

@@ -12,7 +12,7 @@ const Layout: BlitzLayout<{
   children?: React.ReactNode
   withoutPaddings?: boolean
 }> = ({ title, children, withoutPaddings }) => {
-  const theme = useCurrentTheme()
+  const {theme} = useCurrentTheme()
   return (
     <>
       <Head>

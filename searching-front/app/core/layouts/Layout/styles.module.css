@@ -1,13 +1,11 @@
 .root {
   background: var(--background_main);
-  padding: 20px;
   display: flex;
   flex-direction: column;
   box-sizing: border-box;
 }
 .content {
   margin-top: 20px;
-  margin-left: var(--logoWrapperWidth);
   display: flex;
   flex-direction: column;
 

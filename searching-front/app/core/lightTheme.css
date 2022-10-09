@@ -1,4 +1,10 @@
-#layout.light {
+
+
+
+/* :after,
+:before, */
+#layout.light,
+#layout.light::before{
   --background_main: hsla(206, 63%, 97%, 1);
   --background_secondary: white;
   --background_gradient: linear-gradient(180deg, #f7f9fb, rgba(238, 242, 245, 0.8) 116.16%);
@@ -31,4 +37,6 @@
   --icon_thirdly: #98b2bf;
   --separator_light: rgba(123, 148, 160, 0.2);
   --color_link: #101070;
+
+  --footer_link_color: linear-gradient(270deg, #81CBFA 0%, #459FE8 104.65%);
 }

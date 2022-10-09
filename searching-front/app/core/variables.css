@@ -10,6 +10,8 @@ body {
   --toncoin_header: #353538;
   --toncoin_gradient: linear-gradient(297.97deg, #232328 9.93%, #343437 76.88%);
   --StripeMenuWhite: #fff;
+  --layout-padding: 20px;
+  --border_radius_base: 24px;
 }
 
 body {

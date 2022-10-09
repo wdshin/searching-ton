@@ -9,9 +9,13 @@ import "chart.js/auto"
 import getActualSitesState from "app/stateSites/queries/getActualSitesState"
 import getHistoryOfSitesState from "app/stateSites/queries/getHistoryOfSitesState"
 import { InfluxPeriod } from "services/modules/influxdb/types"
-import { cn } from "app/core/helpers/common"
+import { cn, getDomainFromUrl } from "app/core/helpers/common"
 
 import s from "./styles.module.css"
+import { NftDomain } from "@prisma/client"
+import Button from "app/auth/components/Button"
+import Link from "app/core/components/Link"
+import { count } from "app/core/helpers/metrika"
 
 interface HistoryOfStateItem {
   value: number
@@ -26,22 +30,11 @@ interface HistoryOfState {
 export interface StatePageProps {
   actualState: Awaited<ReturnType<typeof getActualSitesState>>
   historyOfState: HistoryOfState
+  lastWeekNewSites: NftDomain[]
 }
 
 const availableSitesColor = "#08c"
 const allSitesColor = "hsl(200 15% 81% / 1)"
-
-const getDohnutData = (data: number[]) => ({
-  labels: ["Available", "All"],
-  datasets: [
-    {
-      data: data,
-      backgroundColor: [availableSitesColor, allSitesColor],
-      borderColor: [availableSitesColor, "rgba(0,0,0,0)"],
-      borderWidth: 1,
-    },
-  ],
-})
 
 const liteOptions = {
   responsive: true,
@@ -91,7 +84,11 @@ const HistoryItem = ({ data, title }: HistoryItemProps) => {
   )
 }
 
-const State = ({ actualState, historyOfState: historyOfStatePreloaded }: StatePageProps) => {
+const State = ({
+  actualState,
+  historyOfState: historyOfStatePreloaded,
+  lastWeekNewSites,
+}: StatePageProps) => {
   const [historyPeriod, setHistoryPeriod] = useState(InfluxPeriod.D)
   const { t } = useTranslation()
   const [historyOfState] = useQuery(getHistoryOfSitesState, historyPeriod, {
@@ -102,18 +99,38 @@ const State = ({ actualState, historyOfState: historyOfStatePreloaded }: StatePa
   console.log(historyPeriod, historyOfState)
   return (
     <div className={s.root}>
-      <div className={s.title}>{t("state.title")}</div>
-      <div className={s.doughnutAvailable}>
-        <Doughnut
-          data={getDohnutData([actualState.availableDomainsCount, actualState.allDomainsCount])}
-        />
-      </div>
       <div className={s.actualStateWrapper}>
-        <span className={s.availableCount}>{actualState.availableDomainsCount}</span>{" "}
-        {t("state.siteOutOf")} <span className={s.allCount}>{actualState.allDomainsCount}</span>
-        <span className={s.areNowAvailable}>{t("state.areNowAvailable")}</span>
+        <div className={s.counterWrapper}>
+          <span className={s.availableCount}>{actualState.availableDomainsCount}</span>
+          <span className={s.allCount}>/ {actualState.allDomainsCount}</span>
+          <div className={s.counterFooter}>
+            <div className={s.areNowAvailable}>{t("state.areNowAvailable")}</div>
+            <div className={s.counterDate}>9 september</div>
+          </div>
+        </div>
       </div>
-      {historyOfState && (
+      <div className={s.newestTitle}>
+        10 newest <span className={s.newestTitleTon}>TON</span> sites
+      </div>
+      <div className={s.newestListWrapper}>
+        {lastWeekNewSites.map((i) => (
+          <Link
+            target="_blank"
+            theme="clear"
+            href={i.address + "?from=Searching.ton"}
+            wide
+            className={s.newestListItem}
+            onClick={()=>count('from_state_page_to_site')}
+          >
+            {getDomainFromUrl(i.address)}
+            <Button onClick={console.log} className={s.siteButton} theme="primary">
+              .ton
+            </Button>
+          </Link>
+        ))}
+      </div>
+
+      {/* {historyOfState && (
         <div className={s.historyStateWrapper}>
           <div className={s.historyStatePeriodsWrapper}>
             {Object.values(InfluxPeriod).map((i) => (
@@ -124,8 +141,8 @@ const State = ({ actualState, historyOfState: historyOfStatePreloaded }: StatePa
                 {i}
               </button>
             ))}
-          </div>
-          <HistoryItem
+          </div> */}
+      {/* <HistoryItem
             title="Available sites count"
             data={getGraphData(
               historyOfState.available,
@@ -136,9 +153,9 @@ const State = ({ actualState, historyOfState: historyOfStatePreloaded }: StatePa
           <HistoryItem
             title="All sites count"
             data={getGraphData(historyOfState.all, "All sites count", allSitesColor)}
-          />
-        </div>
-      )}
+          /> */}
+      {/* </div> */}
+      {/* )} */}
     </div>
   )
 }

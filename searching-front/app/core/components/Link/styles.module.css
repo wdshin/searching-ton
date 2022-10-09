@@ -1,0 +1,40 @@
+.root {
+  text-decoration: none;
+  display: inline-block;
+
+  /* size */
+  font-size: 18px;
+  font-weight: 500px;
+}
+.root a {
+  text-decoration: none;
+}
+
+.root a.wide::before {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+}
+
+.root:active {
+  transform: scale(0.95);
+}
+
+.root:global(.theme-primary) a {
+  color: var(--button_primary);
+}
+
+.root:global(.theme-primary) a:hover {
+  color: var(--button_primary_hover);
+}
+
+.root:global(.theme-primary) a:active {
+  color: var(--button_primary_pressed);
+}
+
+.root:global(.theme-clear) a {
+  color: inherit;
+}
