@@ -97,7 +97,7 @@ const State = ({
     keepPreviousData: true,
     initialData: historyOfStatePreloaded,
   })
-  console.log(historyPeriod, historyOfState)
+
   return (
     <div className={s.root}>
       <div className={s.actualStateWrapper}>
@@ -124,7 +124,7 @@ const State = ({
             onClick={()=>count('from_state_page_to_site')}
           >
             {getDomainFromUrl(i.address)}
-            <Button onClick={console.log} className={s.siteButton} theme="primary">
+            <Button className={s.siteButton} theme="primary">
               .ton
             </Button>
           </Link>
