@@ -42,9 +42,6 @@ const indexWebsite = async (domain: string, path: string, subpages: SubPages = {
 
 
 const main = async () => {
-  await indexWebsite('http://planets.ton', "/")
-  console.log('finish')
-  return
   await Elastic.initElastic()
   const domains = await db.nftDomain.findMany({where:{available: true}})
   console.log('Find domains', domains)
