@@ -11,7 +11,6 @@ const findFirstNotIndexed = (subpages: SubPages = {}) => {
 }
 
 const indexWebsite = async (domain: string, path: string, subpages: SubPages = {},count=0) => {
-  console.log(subpages)
   const subpagesLength = Object.keys(subpages).length;
   if (!subpages[path]) {
     const url = domain + path;

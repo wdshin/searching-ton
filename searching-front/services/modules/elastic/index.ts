@@ -103,7 +103,6 @@ class Elastic {
 
   public index = async (params: ElasticIndexParams) => {
     const indexName = getIndexNameByText(params.title + params.bodyText)
-    console.log('index',params)
     await this.client.index({
       index: indexName,
       id: params.url,

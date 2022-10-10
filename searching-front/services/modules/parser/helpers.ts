@@ -19,7 +19,6 @@ export const htmlToText = (html: string) => {
       .replaceAll(/<!--\s?(.|\R|\s)*?-->/g, "")
       .replaceAll(/<.*><\/.*>/g, "")
   } catch (e) {
-    console.log("htmlToText", e)
     return ""
   }
 }

@@ -33,14 +33,14 @@ const LastSitesWidget = (props: Props) => {
                 onClick={()=>count('from_main_new_sites_widget_to_site')}
               >
                 {getDomainFromUrl(i.address)}
-                <Button onClick={console.log} className={s.siteButton} theme="primary">
+                <Button className={s.siteButton} theme="primary">
                   .ton
                 </Button>
               </Link>
             </div>
           ))}
         </div>
-        <Button onClick={console.log} className={s.button} theme="primary">
+        <Button className={s.button} theme="primary">
           .ton
         </Button>
       </div>
