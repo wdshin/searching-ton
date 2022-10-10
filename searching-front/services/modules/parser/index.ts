@@ -32,8 +32,8 @@ const getFaviconUrl = (dom:JSDOM, domain:string) => {
       try {
         url = new URL(href);
       } catch(e){
-        url = new URL(domain+href);
-        url.pathname = url.pathname.replace('//','/');
+        url = new URL(domain+'/'+href);
+        url.pathname = url.pathname.replaceAll('//','/');
       }
       return url.toString();
     }
