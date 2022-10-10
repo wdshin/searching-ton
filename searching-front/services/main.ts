@@ -6,13 +6,13 @@ import parser from "./parser"
 import influx from "./influx"
 
 const run = async()=>{
-    // console.log('Start domain watcher')
-    // console.time('watcher')
-    // await domainWatcher();
-    // console.timeEnd('watcher')
-    // influx()
-    // console.log('Start parser');
-    // console.time('watcher');
+    console.log('Start domain watcher')
+    console.time('watcher')
+    await domainWatcher();
+    console.timeEnd('watcher')
+    influx()
+    console.log('Start parser');
+    console.time('watcher');
     await parser();
     console.timeEnd('watcher');
     
