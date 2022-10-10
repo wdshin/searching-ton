@@ -11,6 +11,7 @@ export interface ElasticIndexParams {
   h1?: string
   bodyText: string
   description?: string
+  faviconUrl?: string
 }
 export interface ElasticSearchParams {
   text: string
@@ -102,6 +103,7 @@ class Elastic {
 
   public index = async (params: ElasticIndexParams) => {
     const indexName = getIndexNameByText(params.title + params.bodyText)
+    console.log('index',params)
     await this.client.index({
       index: indexName,
       id: params.url,
@@ -111,6 +113,7 @@ class Elastic {
         h1: params.h1,
         bodyText: params.bodyText,
         description: params.description,
+        faviconUrl: params.faviconUrl,
       },
     })
   }

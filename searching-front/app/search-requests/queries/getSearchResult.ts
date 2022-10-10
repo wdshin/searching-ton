@@ -22,6 +22,7 @@ const processResult = ({ bodyText, ...res }: Object, search: string) => {
   return {
     ...res,
     description: res.description || bodyToDescription(bodyText, search),
+    faviconUrl: res.faviconUrl,
   }
 }
 

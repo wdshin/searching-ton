@@ -15,8 +15,7 @@ const indexWebsite = async (domain: string, path: string, subpages: SubPages = {
   const subpagesLength = Object.keys(subpages).length;
   if (!subpages[path]) {
     const url = domain + path;
-    const parseInfo = await Parser.parseUrl(url)
-    console.log(parseInfo)
+    const parseInfo = await Parser.parseUrl(url,domain);
     subpages[path] = true
     let pages = {}
     if (parseInfo !== SHOULD_NOT_PARSE && subpagesLength < 50) {

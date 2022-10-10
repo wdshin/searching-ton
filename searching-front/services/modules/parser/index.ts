@@ -23,9 +23,29 @@ const isInvalidLink = (link: string) => {
   return link.match(/\./) && !(link.match(/\.html/) || link.match(/\.htm/))
 }
 
+const getFaviconUrl = (dom:JSDOM, domain:string) => {
+  try{
+    const node = dom.window.document.querySelector("[rel=icon][type*=image]") as HTMLLinkElement;;
+    const href = node?.href;
+    let url;
+    if(href){
+      try {
+        url = new URL(href);
+      } catch(e){
+        url = new URL(domain+href);
+        url.pathname = url.pathname.replace('//','/');
+      }
+      return url.toString();
+    }
+  } catch(e){
+    return undefined
+  }
+
+}
+
 class Parser {
   constructor() {}
-  parseUrl = async (url: string) => {
+  parseUrl = async (url: string, domain:string) => {
     try {
       
       const { data, headers } = await axios.get(url,{
@@ -66,6 +86,7 @@ class Parser {
               .querySelector("meta[name='description']")
               ?.getAttribute("content") || "",
           url,
+          faviconUrl: getFaviconUrl(dom, domain)
         },
         subPages,
       }
