@@ -5,7 +5,7 @@ export default async function getLastWeekNewSites() {
   const lastWeekNewSites = await db.nftDomain.findMany({
     orderBy: { firstAvailableDate: "desc" },
     take: 10,
-    where: { available: true },
+    where: { available: true, blocked: false },
   })
 
   return {
