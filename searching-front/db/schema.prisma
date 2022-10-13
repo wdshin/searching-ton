@@ -96,4 +96,5 @@ model NftDomain {
   available Boolean
   lastParse DateTime?
   firstAvailableDate DateTime?
+  blocked Boolean? @default(false)
 }

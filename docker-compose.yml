@@ -35,6 +35,8 @@ services:
       - db
       - influxdb
   watcher:
+    ports:
+      - '5555:5555'
     container_name: watcher
     depends_on:
       - elasticsearch
