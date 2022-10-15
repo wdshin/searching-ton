@@ -23,38 +23,36 @@ const isInvalidLink = (link: string) => {
   return link.match(/\./) && !(link.match(/\.html/) || link.match(/\.htm/))
 }
 
-const getFaviconUrl = (dom:JSDOM, domain:string) => {
-  try{
-    const node = dom.window.document.querySelector("[rel=icon][type*=image]") as HTMLLinkElement;;
-    const href = node?.href;
-    let url;
-    if(href){
+const getFaviconUrl = (dom: JSDOM, domain: string) => {
+  try {
+    const node = dom.window.document.querySelector("[rel=icon][type*=image]") as HTMLLinkElement
+    const href = node?.href
+    let url
+    if (href) {
       try {
-        url = new URL(href);
-      } catch(e){
-        url = new URL(domain+'/'+href);
-        url.pathname = url.pathname.replaceAll('//','/');
+        url = new URL(href)
+      } catch (e) {
+        url = new URL(domain + "/" + href)
+        url.pathname = url.pathname.replaceAll("//", "/")
       }
-      return url.toString();
+      return url.toString()
     }
-  } catch(e){
+  } catch (e) {
     return undefined
   }
-
 }
 
 class Parser {
   constructor() {}
-  parseUrl = async (url: string, domain:string) => {
+  parseUrl = async (url: string, domain: string) => {
     try {
-      
-      const { data, headers } = await axios.get(url,{
+      const { data, headers } = await axios.get(url, {
         proxy: getTonProxy(),
       })
 
       const contentType = headers["content-type"].toLocaleLowerCase()
 
-      if (!contentType.startsWith('text/html')) {
+      if (!contentType.startsWith("text/html")) {
         return SHOULD_NOT_PARSE
       }
 
@@ -66,7 +64,7 @@ class Parser {
       dom.window.document.querySelectorAll("a").forEach(({ href }) => {
         if (isInnerLink(href)) {
           const url = new URL("ton://a.ton" + href)
-          if (!isInvalidLink(url.pathname) && [...subPagesSet].length < 50 ) {
+          if (!isInvalidLink(url.pathname) && [...subPagesSet].length < 50) {
             subPagesSet.add(url.pathname)
           }
         }
@@ -86,12 +84,12 @@ class Parser {
               .querySelector("meta[name='description']")
               ?.getAttribute("content") || "",
           url,
-          faviconUrl: getFaviconUrl(dom, domain)
+          faviconUrl: getFaviconUrl(dom, domain),
         },
         subPages,
       }
     } catch (e) {
-      console.log("Parse error ",e, url)
+      console.log("Parse error ", e?.code, url)
       return SHOULD_NOT_PARSE
     }
   }
