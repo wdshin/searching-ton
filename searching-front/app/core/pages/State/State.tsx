@@ -111,7 +111,7 @@ const State = ({
         </div>
       </div>
       <div className={s.newestTitle}>
-        10 newest <span className={s.newestTitleTon}>TON</span> sites
+        Newest <span className={s.newestTitleTon}>TON</span> sites
       </div>
       <div className={s.newestListWrapper}>
         {lastWeekNewSites.map((i) => (

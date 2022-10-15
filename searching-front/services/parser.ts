@@ -42,7 +42,7 @@ const indexWebsite = async (domain: string, path: string, subpages: SubPages = {
 const main = async () => {
   await Elastic.initElastic()
   const domains = await db.nftDomain.findMany({where:{available: true}})
-  console.log('Find domains', domains)
+  console.log('Find domains', domains.map(item=>item.address))
   if (domains) {
     for (const domain of domains) {
       await db.nftDomain.update({
