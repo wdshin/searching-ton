@@ -97,4 +97,7 @@ model NftDomain {
   lastParse DateTime?
   firstAvailableDate DateTime?
   blocked Boolean? @default(false)
+  domainName String @default("")
+  walletAddress String?
+  tonBalance String?
 }
