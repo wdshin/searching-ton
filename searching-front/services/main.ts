@@ -10,11 +10,11 @@ const run = async()=>{
     console.time('watcher')
     await domainWatcher();
     console.timeEnd('watcher')
-    influx()
-    console.log('Start parser');
-    console.time('watcher');
-    await parser();
-    console.timeEnd('watcher');
+    // influx()
+    // console.log('Start parser');
+    // console.time('watcher');
+    // await parser();
+    // console.timeEnd('watcher');
     
 }
 

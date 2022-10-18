@@ -1,4 +1,4 @@
 export const getTonProxy = () => ({
-    host: "in2.ton.org",
+    host: "in3.ton.org",
     port: 8080,
   })

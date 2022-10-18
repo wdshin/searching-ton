@@ -9,13 +9,14 @@ import "chart.js/auto"
 import getActualSitesState from "app/stateSites/queries/getActualSitesState"
 import getHistoryOfSitesState from "app/stateSites/queries/getHistoryOfSitesState"
 import { InfluxPeriod } from "services/modules/influxdb/types"
-import { cn, getDomainFromUrl } from "app/core/helpers/common"
+import { cn, getDomainFromUrl, getObserverUrlByAddress } from "app/core/helpers/common"
 
 import s from "./styles.module.css"
 import { NftDomain } from "@prisma/client"
 import Button from "app/auth/components/Button"
 import Link from "app/core/components/Link"
 import { count } from "app/core/helpers/metrika"
+import TonLogoWithoutBg from "app/core/icons/TonLogoWithoutBg"
 
 interface HistoryOfStateItem {
   value: number
@@ -89,7 +90,7 @@ const State = ({
   historyOfState: historyOfStatePreloaded,
   lastWeekNewSites,
 }: StatePageProps) => {
-  const nowDate = format(new Date(),'d MMMM').toLowerCase();
+  const nowDate = format(new Date(), "d MMMM").toLowerCase()
   const [historyPeriod, setHistoryPeriod] = useState(InfluxPeriod.D)
   const { t } = useTranslation()
   const [historyOfState] = useQuery(getHistoryOfSitesState, historyPeriod, {
@@ -115,19 +116,43 @@ const State = ({
       </div>
       <div className={s.newestListWrapper}>
         {lastWeekNewSites.map((i) => (
-          <Link
-            target="_blank"
-            theme="clear"
-            href={i.address + "?from=Searching.ton"}
-            wide
-            className={s.newestListItem}
-            onClick={()=>count('from_state_page_to_site')}
-          >
-            {getDomainFromUrl(i.address)}
-            <Button className={s.siteButton} theme="primary">
-              .ton
-            </Button>
-          </Link>
+          <div className={s.newestListItem}>
+            <Link
+              className={s.newestListItemLeft}
+              target="_blank"
+              theme="clear"
+              href={i.address + "?from=Searching.ton"}
+              onClick={() => count("from_state_page_to_site")}
+              wide
+              title="Open tonsite"
+            >
+              {getDomainFromUrl(i.address)}
+              <Button className={s.siteButton} theme="primary">
+                .ton
+              </Button>
+            </Link>
+
+            {i.walletAddress && i.tonBalance && (
+              <Link
+                className={s.newestListItemRight}
+                target="_blank"
+                theme="clear"
+                href={getObserverUrlByAddress(i.walletAddress)}
+                onClick={() => count("from_state_page_to_tonscan")}
+                title="Open wallet in tonscan"
+                wide
+              >
+                ~
+                {new Intl.NumberFormat("en-US", { style: "currency", currency: "USD" })
+                  .format(+i.tonBalance)
+                  .replace("$", "")
+                  .replace(",", " ")}
+                <div className={s.tonScanIcon}>
+                  <TonLogoWithoutBg />
+                </div>
+              </Link>
+            )}
+          </div>
         ))}
       </div>
 

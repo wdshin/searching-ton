@@ -10,3 +10,6 @@ export const isNode = () => {
 }
 
 export const getDomainFromUrl = (url: string) => url.match(/http:\/\/(.*).ton/)?.[1]
+
+export const getObserverUrlByAddress = (address: string) => `https://tonscan.org/address/${address}`
+

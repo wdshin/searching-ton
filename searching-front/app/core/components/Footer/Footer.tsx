@@ -34,8 +34,8 @@ const Footer = () => {
   return (
     <div className={s.root}>
       <div className={s.contactsWrapper}>
-      <FooterLink href="https://searching_ton.t.me/" keyLink="footer.linkContacts" />
       <FooterLink href="https://searchington.t.me/" keyLink="footer.linkAnnouncments" />
+      <FooterLink href="https://searching_ton_feedback_bot.t.me/" keyLink="footer.linkFeedback" />
       </div>
     </div>
   )

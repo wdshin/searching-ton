@@ -1,4 +1,4 @@
-import tonweb from "tonweb"
+import TonWeb from "tonweb"
 import {
   JettonApi,
   DNSApi,
@@ -13,19 +13,30 @@ import db from "../db/index"
 import axios from "axios"
 import { getTonProxy } from "./helpers"
 
+const dnsApi = new DNSApi()
 interface SearchNFTItemsParams {
   limit: number
   offset: number
 }
 
 const getFullUrl = (dmn: string) => `http://${dmn}`
-const upsertDmn = async (dmn: string, available: boolean) => {
-  const domainFromDB = await db.nftDomain.findFirst({where:{address: getFullUrl(dmn)}})
-  const shouldUpdateFirstAvailableDate = !domainFromDB?.firstAvailableDate && available;
 
-  const upsertObj = { available, address: getFullUrl(dmn) };
-  if(shouldUpdateFirstAvailableDate){
-    upsertObj.firstAvailableDate = new Date();
+interface UpsertDmnParams {
+  available: boolean
+  walletAddress?: string
+  tonBalance?: number
+}
+const upsertDmn = async (
+  dmn: string,
+  { available, tonBalance, walletAddress }: UpsertDmnParams
+) => {
+  const domainFromDB = await db.nftDomain.findFirst({ where: { address: getFullUrl(dmn) } })
+  const shouldUpdateFirstAvailableDate = !domainFromDB?.firstAvailableDate && available
+
+  const upsertObj = { available, address: getFullUrl(dmn), domainName: dmn, walletAddress, tonBalance  }
+  
+  if (shouldUpdateFirstAvailableDate) {
+    upsertObj.firstAvailableDate = new Date()
   }
   return await db.nftDomain.upsert({
     where: {
@@ -35,7 +46,6 @@ const upsertDmn = async (dmn: string, available: boolean) => {
     create: upsertObj,
   })
 }
-
 
 const wait = (time: number) => new Promise((resolve) => setTimeout(() => resolve(true), time))
 
@@ -53,6 +63,7 @@ const searchNFTItems = async ({ limit, offset }: SearchNFTItemsParams) => {
     )
     return data.nft_items
   } catch (e) {
+    console.log("error fetch items", e)
     return searchNFTItems({ limit, offset })
   }
 }
@@ -71,12 +82,40 @@ const fetchTonSite = async (url: string) => {
     }
     return url
   } catch (e) {
+    // console.log('restart fetch domains',e)
     throw url
+  }
+}
+
+const tonweb = new TonWeb(
+  new TonWeb.HttpProvider("https://toncenter.com/api/v2/jsonRPC", {
+    apiKey: "2594e0a460095b81258b639950a16d9718fa3cbb1ba8a2eb87fbb4586a529b8f",
+  })
+)
+
+const fetchDomainInfo = async (url: string) => {
+  try {
+    await wait(1)
+
+    const address = (await tonweb.dns.getWalletAddress(url))?.toString(true, true, true)
+
+    let balance
+    if (address) {
+      balance = tonweb.utils.fromNano(await tonweb.getBalance(address))
+      return {
+        balance,
+        address,
+      }
+    }
+    return null
+  } catch (e) {
+    return null
   }
 }
 
 const main = async () =>
   new Promise(async (resolve) => {
+    // const result = await tonweb.dns.getWalletAddress('just-for-test.ton')
     // Receive typed array of owner nfts
     let count = 0
     while (true) {
@@ -86,26 +125,25 @@ const main = async () =>
         offset: count * portion,
       })
       if (nftItems.length) {
-        console.time('fetchDomain')
         const promises1: Promise<unknown>[] = []
         for (let i = 0; i < nftItems.length; i++) {
           const nftDomainItem = nftItems[i]
           if (nftDomainItem.dns) {
-            
-            promises1.push(fetchTonSite(nftDomainItem.dns)
-              .then(async (dmn) => {
-                console.log("success dmn", dmn)
-                upsertDmn(dmn, true)
-              })
-              .catch((dmn) => {
-                upsertDmn(dmn,false)
-              }))
-              
+            promises1.push(
+              fetchTonSite(nftDomainItem.dns)
+                .then(async (dmn) => {
+                  const domainInfo = await fetchDomainInfo(dmn)
+                  console.log("success dmn", dmn)
+                  upsertDmn(dmn, {available: true, walletAddress:domainInfo?.address,tonBalance:domainInfo?.balance})
+                })
+                .catch((dmn) => {
+                  upsertDmn(dmn, {available: false})
+                })
+            )
           }
         }
         count++
         await Promise.all(promises1)
-        console.timeEnd('fetchDomain')
         continue
       }
       break
