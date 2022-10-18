@@ -93,7 +93,7 @@ const tonweb = new TonWeb(
   })
 )
 
-const fetchDomainInfo = async (url: string) => {
+const fetchDomainInfo = async (url: string, count=0) => {
   try {
     await wait(1)
 
@@ -110,7 +110,11 @@ const fetchDomainInfo = async (url: string) => {
     console.log('There is no domain info ofr', url)
     return null
   } catch (e) {
-    console.log('Failed fetch domain info for', url,e)
+    if(count < 10){
+      console.log('Failed fetch domain info for', url,e)
+      await wait(Math.floor(Math.random() * 10))
+      return await fetchDomainInfo(url, count++)
+    }
     return null
   }
 }
