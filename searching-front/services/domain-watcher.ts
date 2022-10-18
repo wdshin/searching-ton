@@ -102,6 +102,7 @@ const fetchDomainInfo = async (url: string, count=0) => {
     let balance
     if (address) {
       balance = tonweb.utils.fromNano(await tonweb.getBalance(address))
+      console.log('Success domain info', url)
       return {
         balance,
         address,
