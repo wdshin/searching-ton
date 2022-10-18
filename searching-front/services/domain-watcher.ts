@@ -24,7 +24,7 @@ const getFullUrl = (dmn: string) => `http://${dmn}`
 interface UpsertDmnParams {
   available: boolean
   walletAddress?: string
-  tonBalance?: number
+  tonBalance?: string
 }
 const upsertDmn = async (
   dmn: string,
@@ -107,8 +107,10 @@ const fetchDomainInfo = async (url: string) => {
         address,
       }
     }
+    console.log('There is no domain info ofr', url)
     return null
   } catch (e) {
+    console.log('Failed fetch domain info for', url,e)
     return null
   }
 }
@@ -134,7 +136,7 @@ const main = async () =>
                 .then(async (dmn) => {
                   const domainInfo = await fetchDomainInfo(dmn)
                   console.log("success dmn", dmn)
-                  upsertDmn(dmn, {available: true, walletAddress:domainInfo?.address,tonBalance:domainInfo?.balance})
+                  upsertDmn(dmn, {available: true, walletAddress:domainInfo?.address, tonBalance:domainInfo?.balance})
                 })
                 .catch((dmn) => {
                   upsertDmn(dmn, {available: false})
