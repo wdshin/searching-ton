@@ -126,10 +126,17 @@ const State = ({
               wide
               title="Open tonsite"
             >
-              {getDomainFromUrl(i.address)}
-              <Button className={s.siteButton} theme="primary">
-                .ton
-              </Button>
+              <div className={s.newestListItemLeftContent}>
+                {getDomainFromUrl(i.address)}
+                <Button className={s.siteButton} theme="primary">
+                  .ton
+                </Button>
+              </div>
+
+              <div className={s.newestListItemLeftDate}>
+                {i.firstAvailableDate &&
+                  format(new Date(i.firstAvailableDate), "d MMMM").toLowerCase()}
+              </div>
             </Link>
 
             {i.walletAddress && i.tonBalance && (

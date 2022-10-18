@@ -142,8 +142,25 @@
 
 .newestListItemLeft {
   position: relative;
-  padding: 24px 0 24px 34px;
+  padding: 24px 0 16px 34px;
   flex: 1 1 70%;
+
+}
+
+.newestListItemLeft a {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.newestListItemLeftContent {
+  
+}
+.newestListItemLeftDate {
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 15px;
+  opacity: 32%;
 }
 
 .newestListItemRight {
@@ -193,6 +210,9 @@
   .newestListItemLeft {
     padding: 24px 34px;
     justify-content: center;
+  }
+  .newestListItemLeft{
+    padding-bottom: 16px;
   }
   .newestListItemRight {
     text-align: left;
