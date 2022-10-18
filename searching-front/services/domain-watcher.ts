@@ -47,12 +47,12 @@ const upsertDmn = async (
   })
 }
 
-const wait = (time: number) => new Promise((resolve) => setTimeout(() => resolve(true), time))
+const wait = (time: number) => new Promise((resolve) => setTimeout(() => resolve(true), time * 1000))
 
 const searchNFTItems = async ({ limit, offset }: SearchNFTItemsParams) => {
   try {
     console.log(`Start search limit:${limit}, offset:${offset}`)
-    await wait(1000)
+    await wait(1)
     const { data } = await axios.get(
       `https://tonapi.io/v1/nft/searchItems?collection=EQC3dNlesgVD8YbAazcauIrXBPfiVhMMr5YYk2in0Mtsz0Bz&include_on_sale=false&limit=${limit}&offset=${offset}`,
       {
