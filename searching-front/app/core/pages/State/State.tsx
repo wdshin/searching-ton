@@ -146,7 +146,7 @@ const State = ({
                 {new Intl.NumberFormat("en-US", { style: "currency", currency: "USD" })
                   .format(+i.tonBalance)
                   .replace("$", "")
-                  .replace(",", " ")}
+                  .replaceAll(",", " ")}
                 <div className={s.tonScanIcon}>
                   <TonLogoWithoutBg />
                 </div>
