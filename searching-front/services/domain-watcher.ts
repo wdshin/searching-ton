@@ -114,7 +114,7 @@ const fetchDomainInfo = async (url: string, count=0) => {
     if(count < 10){
       console.log('Failed fetch domain info', count,url, e)
       await wait(Math.floor(Math.random() * 10)+5)
-      return await fetchDomainInfo(url, count++)
+      return await fetchDomainInfo(url, count+1)
     }
     return null
   }
