@@ -17,6 +17,7 @@ import Button from "app/auth/components/Button"
 import Link from "app/core/components/Link"
 import { count } from "app/core/helpers/metrika"
 import TonLogoWithoutBg from "app/core/icons/TonLogoWithoutBg"
+import DomainCard from "app/core/components/DomainCard"
 
 interface HistoryOfStateItem {
   value: number
@@ -116,50 +117,7 @@ const State = ({
       </div>
       <div className={s.newestListWrapper}>
         {lastWeekNewSites.map((i) => (
-          <div className={s.newestListItem}>
-            <Link
-              className={s.newestListItemLeft}
-              target="_blank"
-              theme="clear"
-              href={i.address + "?from=Searching.ton"}
-              onClick={() => count("from_state_page_to_site")}
-              wide
-              title="Open tonsite"
-            >
-              <div className={s.newestListItemLeftContent}>
-                {getDomainFromUrl(i.address)}
-                <Button className={s.siteButton} theme="primary">
-                  .ton
-                </Button>
-              </div>
-
-              <div className={s.newestListItemLeftDate}>
-                {i.firstAvailableDate &&
-                  format(new Date(i.firstAvailableDate), "d MMMM").toLowerCase()}
-              </div>
-            </Link>
-
-            {i.walletAddress && i.tonBalance && (
-              <Link
-                className={s.newestListItemRight}
-                target="_blank"
-                theme="clear"
-                href={getObserverUrlByAddress(i.walletAddress)}
-                onClick={() => count("from_state_page_to_tonscan")}
-                title="Open wallet in tonscan"
-                wide
-              >
-                ~
-                {new Intl.NumberFormat("en-US", { style: "currency", currency: "USD" })
-                  .format(+i.tonBalance)
-                  .replace("$", "")
-                  .replaceAll(",", " ")}
-                <div className={s.tonScanIcon}>
-                  <TonLogoWithoutBg />
-                </div>
-              </Link>
-            )}
-          </div>
+          <DomainCard {...i} />
         ))}
       </div>
 

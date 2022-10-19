@@ -29,10 +29,13 @@ const processResult = ({ bodyText, ...res }: Object, search: string) => {
 export default resolver.pipe(resolver.zod(GetSearchRequest), async ({ text, page }, c) => {
   upsertSearchRequest({ text }, c).catch(console.log)
 
+  const domainName = (text.replaceAll('.ton','')+'.ton').toLowerCase();
   const result = await Elastic.search({ text, page })
+  const domain = await db.nftDomain.findFirst({ where:{domainName} })
 
   return {
     hits: result.hits.map((i) => processResult(i._source, text)),
     pagesCount: Math.ceil(result.total / SEARCH_PER_PAGE),
+    domain
   }
 })

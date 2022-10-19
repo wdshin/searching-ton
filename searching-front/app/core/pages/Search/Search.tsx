@@ -1,4 +1,5 @@
 import { useQuery } from "@blitzjs/rpc"
+import DomainCard from "app/core/components/DomainCard"
 import Pagination from "app/core/components/Pagination"
 import SearchForm from "app/core/components/SearchForm"
 import WebsiteCard from "app/core/components/WebsiteCard"
@@ -24,10 +25,11 @@ const Search = () => {
   }
 
   const getContent = () => {
-    if (res?.hits.length) {
+    if (res?.hits.length || res?.domain) {
       return (
         <div className={s.content}>
           <div className={s.content}>
+            {res?.domain && <DomainCard {...res.domain}/>}
             {Object.values(res.hits).map((i) => (
               <WebsiteCard {...i} />
             ))}
