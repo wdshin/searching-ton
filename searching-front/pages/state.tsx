@@ -38,7 +38,7 @@ const StatePage: BlitzPage = (props) => {
       }}
     >
       <ContextProviders contextParamsServer={props}>
-        <Layout title="State of TON Sites" withoutPaddings>
+        <Layout title="Searching | State of TON Sites" withoutPaddings>
           <Suspense fallback="Loading....">
             <State {...props} />
           </Suspense>

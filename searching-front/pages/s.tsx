@@ -32,7 +32,7 @@ const SearchPage: BlitzPage = (props) => {
       }}
     >
       <ContextProviders contextParamsServer={props}>
-        <Layout title="Searching">
+        <Layout title="Searching | Search">
           <Suspense fallback="Loading....">
             <Search />
           </Suspense>
