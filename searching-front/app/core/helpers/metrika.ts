@@ -6,6 +6,8 @@ export const count = (event: string) => {
   if (isDev) {
     return
   }
-  yaCounter90644479.reachGoal(event)
+  try {
+    yaCounter90644479.reachGoal(event)
+  } catch (e) {}
   gtag("event", event)
 }
