@@ -23,7 +23,7 @@ const LastSitesWidget = (props: Props) => {
       </div>
       <div className={s.sitesWrapperShadows}>
         <div className={s.sitesWrapper}>
-          {props.lastWeekNewSites.map((i) => (
+          {props.lastWeekNewSites.slice(0, 10).map((i) => (
             <div className={s.sitesItem}>
               <Link
                 className={s.siteAddress}
