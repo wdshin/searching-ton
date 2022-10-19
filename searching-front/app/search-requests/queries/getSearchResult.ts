@@ -31,7 +31,7 @@ export default resolver.pipe(resolver.zod(GetSearchRequest), async ({ text, page
 
   const domainName = (text.replaceAll('.ton','')+'.ton').toLowerCase();
   const result = await Elastic.search({ text, page })
-  const domain = await db.nftDomain.findFirst({ where:{domainName} })
+  const domain = await db.nftDomain.findFirst({ where:{domainName, available: true} })
 
   return {
     hits: result.hits.map((i) => processResult(i._source, text)),
