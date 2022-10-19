@@ -2,6 +2,7 @@ import { Routes } from "@blitzjs/next"
 import { useMutation, useQuery } from "@blitzjs/rpc"
 import Button from "app/auth/components/Button/Button"
 import { cn } from "app/core/helpers/common"
+import { count } from "app/core/helpers/metrika"
 import i18n from "app/i18n"
 import upsertSearchRequest from "app/search-requests/mutations/upsertSearchRequest"
 import getSearchRequests from "app/search-requests/queries/getSearchRequests"
@@ -47,6 +48,7 @@ const SearchForm = () => {
   }
 
   const onSubmit = async (val?: string) => {
+    count('search')
     const query = val || value
     val && setValue(val)
     setFocusedSuggestion(null)
