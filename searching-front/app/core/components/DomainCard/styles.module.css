@@ -153,4 +153,7 @@
     border-top: 1px solid var(--border_color_main);
     border-left: none;
   }
+  .newestListItemLeftDate {
+    margin: auto;
+  }
 }
