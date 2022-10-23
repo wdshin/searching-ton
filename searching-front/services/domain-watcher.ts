@@ -75,6 +75,7 @@ const fetchTonSite = async (url: string) => {
     const urlToFetch = `http://${url}/`
     const response = await axios.get(urlToFetch, {
       proxy: getTonProxy(),
+      timeout: 30000
     })
     if (!response.data) {
       console.log("Error fetch")
