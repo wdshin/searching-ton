@@ -51,7 +51,7 @@ const wait = (time: number) => new Promise((resolve) => setTimeout(() => resolve
 
 const searchNFTItems = async ({ limit, offset }: SearchNFTItemsParams) => {
   try {
-    console.log(`Start search limit:${limit}, offset:${offset}`)
+    console.log(`Start search part:${offset}`)
     await wait(1)
     const { data } = await axios.get(
       `https://tonapi.io/v1/nft/searchItems?collection=EQC3dNlesgVD8YbAazcauIrXBPfiVhMMr5YYk2in0Mtsz0Bz&include_on_sale=false&limit=${limit}&offset=${offset}`,
@@ -68,7 +68,7 @@ const searchNFTItems = async ({ limit, offset }: SearchNFTItemsParams) => {
   }
 }
 
-const portion = 1000
+const portion = 500
 
 const fetchTonSite = async (url: string) => {
   try {
@@ -160,6 +160,8 @@ const main = async () =>
     setTimeout(() => {
       resolve(true)
     }, 3000)
+  }).catch(e=>{
+    console.log('Domain watcher error:\n',e)
   })
 
 export default main
