@@ -19,8 +19,8 @@ services:
     #   - 9200:9200
   influxdb:
     image: influxdb:2.4-alpine
-    # ports:
-    #   - '8086:8086'
+    ports:
+      - '8086:8086'
     volumes:
       - influxdb-storage:/var/lib/influxdb
     env_file: ./searching-front/.env.local
