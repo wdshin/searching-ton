@@ -1,4 +1,4 @@
 export const getTonProxy = () => ({
-    host: "in3.ton.org",
+    host: process.env.TON_PROXY_DOMAIN || "in3.ton.org",
     port: 8080,
   })
