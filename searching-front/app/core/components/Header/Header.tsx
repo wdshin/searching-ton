@@ -17,7 +17,7 @@ const Header = () => {
   return (
     <div className={cn(s.root, { [s.withBorder]: shouldShowSearchForm })}>
       <div onClick={toMain} className={s.logoWrapper}>
-        <TonLogo /> <span>TON SEARCHING</span>
+        <TonLogo /> <span>TON Ads Network</span>
       </div>
       {shouldShowSearchForm && <SearchForm />}
       {/* <ThemeSwitcher /> */}
